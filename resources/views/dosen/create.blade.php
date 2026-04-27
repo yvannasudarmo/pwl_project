@@ -1,6 +1,6 @@
-<form action="{{route('mahasiswa.save')}}"  method="post">
+<form action="{{route('dosen.edit', $dosen->id)}}"  method="post">
     @csrf
-    <table>
+<table>
         <tr>
             <td>Nama Lengkap</td>
             <td>:</td>
@@ -12,9 +12,19 @@
             <td><input type="text" name="NIM"></td>
         </tr>
         <tr>
-            <td>Nomor Induk Siswa Nasional</td>
+            <td>Nomor Induk Dosen Nasional</td>
             <td>:</td>
-            <td><input type="text" name="NISN"></td>
+            <td><input type="text" name="NIDN"></td>
+        </tr>
+        <tr>
+            <td>Pendidikan Terakhir</td>
+            <td>:</td>
+            <td><input type="text" name="Pendidikan_Terakhir"></td>
+        </tr>
+        <tr>
+            <td>Jurusan</td>
+            <td>:</td>
+            <td><input type="text" name="Jurusan_id"></td>
         </tr>
         <tr>
             <td>Tempat Lahir</td>
@@ -31,8 +41,11 @@
             <td>:</td>
             <td><textarea name="Alamat"></textarea></td>
         </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="Update">
+                <input type="reset" value="Clear">
+            </td>
+        </tr>
     </table>
-
-<button type="Submit">Add</button>
-<button type="reset"> Clear </button>
 </form>

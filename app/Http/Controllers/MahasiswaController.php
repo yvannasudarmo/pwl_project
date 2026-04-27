@@ -31,6 +31,7 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
+        dd($data);
         Mahasiswa::create($data);
 
         return redirect()->action([MahasiswaController::class, 'index']);
