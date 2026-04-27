@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,14 @@ Route::post('/dosen', [DosenController::class, 'store'])->name('dosen.save');
 Route::get('/dosen-edit/{id}', [DosenController::class, 'edit'])->name('dosen.update');
 Route::put('/dosen/{id}', [DosenController::class, 'update'])->name('dosen.edit');
 Route::delete('/dosen/{id}', [DosenController::class, 'destroy'])->name('dosen.delete');
+
+Route::get('/jurusan', [JurusanController::class, 'index']);
+Route::get('/jurusan/{id}', [JurusanController::class, 'show']);
+Route::get('/jurusan-create', [JurusanController::class, 'create'])->name('jurusan.add');
+Route::post('/jurusan', [JurusanController::class, 'store'])->name('jurusan.save');
+Route::get('/jurusan-edit/{id}', [JurusanController::class, 'edit'])->name('jurusan.update');
+Route::put('/jurusan/{id}', [JurusanController::class, 'update'])->name('jurusan.edit');
+Route::delete('/jurusan/{id}', [JurusanController::class, 'destroy'])->name('jurusan.delete');
 
 // Route::get      => Get Data     => R => select
 // SELECT ALL   /   SELECT SPESIFIK
