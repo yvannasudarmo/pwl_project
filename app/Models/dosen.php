@@ -10,7 +10,7 @@ class dosen extends Model
 
     protected $fillable = [
         'Fullname',
-        'NIM',
+        'NIP',
         'NIDN',
         'Pendidikan_Terakhir',
         'Jurusan_id',

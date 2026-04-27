@@ -14,7 +14,7 @@
         <thead>
             <th>No</th>
             <th>Nama Lengkap</th>
-            <th>NIM</th>
+            <th>NIP</th>
             <th>NISN</th>
             <th>Tempat Lahir</th>
             <th>Tanggal Lahir</th>
@@ -26,7 +26,7 @@
         <tr>
             <td>{{$m->id}}</td>
             <td>{{$m->Fullname}}</td>
-            <td>{{$m->NIM}}</td>
+            <td>{{$m->NIP}}</td>
             <td>{{$m->NISN}}</td>
             <td>{{$m->Tempat_Lahir}}</td>
             <td>{{$m->Tanggal_Lahir}}</td>

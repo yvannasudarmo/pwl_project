@@ -1,4 +1,4 @@
-<form action="{{route('dosen.edit', $dosen->id)}}"  method="post">
+<form action="{{ route('dosen.save') }}" method="post">    
     @csrf
 <table>
         <tr>
@@ -7,9 +7,9 @@
             <td><input type="text" name="Fullname"></td>
         </tr>
         <tr>
-            <td>Nomor Induk Mahasiswa</td>
+            <td>Nomor Induk Pengajar</td>
             <td>:</td>
-            <td><input type="text" name="NIM"></td>
+            <td><input type="text" name="NIP"></td>
         </tr>
         <tr>
             <td>Nomor Induk Dosen Nasional</td>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,13 @@ Route::get('/mahasiswa-edit/{id}', [MahasiswaController::class, 'edit'])->name('
 Route::put('/mahasiswa/{id}', [MahasiswaController::class, 'update'])->name('mahasiswa.edit');
 Route::delete('/mahasiswa/{id}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.delete');
 
+Route::get('/dosen', [DosenController::class, 'index']);
+Route::get('/dosen/{id}', [DosenController::class, 'show']);
+Route::get('/dosen-create', [DosenController::class, 'create'])->name('dosen.add');
+Route::post('/dosen', [DosenController::class, 'store'])->name('dosen.save');
+Route::get('/dosen-edit/{id}', [DosenController::class, 'edit'])->name('dosen.update');
+Route::put('/dosen/{id}', [DosenController::class, 'update'])->name('dosen.edit');
+Route::delete('/dosen/{id}', [DosenController::class, 'destroy'])->name('dosen.delete');
 
 // Route::get      => Get Data     => R => select
 // SELECT ALL   /   SELECT SPESIFIK
