@@ -12,8 +12,8 @@ class Mahasiswa extends Model
         'Fullname',
         'NIM',
         'NISN',
-        'Tempat_lahir',
-        'Tanggal_lahir',
+        'Tempat_Lahir',
+        'Tanggal_Lahir',
         'Alamat'
     ];
 }

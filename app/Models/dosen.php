@@ -14,8 +14,8 @@ class dosen extends Model
         'NIDN',
         'Pendidikan_Terakhir',
         'Jurusan_id',
-        'Tempat_lahir',
-        'Tanggal_lahir',
+        'Tempat_Lahir',
+        'Tanggal_Lahir',
         'Alamat'
     ];
 }

@@ -3,18 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Mahasiswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
   <body>
-    <a href={{route('mahasiswa.add')}}>
+    <a href="{{route('mahasiswa.add')}}">
         <input type="button" value="Create">
     </a>
     <table class="table table-striped">
         <thead>
             <th>No</th>
             <th>Nama Lengkap</th>
-            <th>NIP</th>
+            <th>NIM</th>
             <th>NISN</th>
             <th>Tempat Lahir</th>
             <th>Tanggal Lahir</th>
@@ -26,7 +26,7 @@
         <tr>
             <td>{{$m->id}}</td>
             <td>{{$m->Fullname}}</td>
-            <td>{{$m->NIP}}</td>
+            <td>{{$m->NIM}}</td>
             <td>{{$m->NISN}}</td>
             <td>{{$m->Tempat_Lahir}}</td>
             <td>{{$m->Tanggal_Lahir}}</td>
@@ -34,7 +34,7 @@
             <td>{{$m->created_at}}</td>
             <td>{{$m->updated_at}}</td>
             <td>
-                <a href={{route('mahasiswa.update', $m->id)}}>
+                <a href="{{route('mahasiswa.update', $m->id)}}">
                     <input type="button" value="Edit">
                 </a>
                 <form action="{{route('mahasiswa.delete', $m->id)}}"  method="post">

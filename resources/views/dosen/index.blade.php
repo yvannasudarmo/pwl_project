@@ -14,7 +14,7 @@
         <thead>
             <th>No</th>
             <th>Nama Lengkap</th>
-            <th>NIM</th>
+            <th>NIP</th>
             <th>NIDN</th>
             <th>Pendidikan Terakhir</th>
             <th>Jurusan</th>
@@ -28,7 +28,7 @@
         <tr>
             <td>{{$d->id}}</td>
             <td>{{$d->Fullname}}</td>
-            <td>{{$d->NIM}}</td>
+            <td>{{$d->NIP}}</td>
             <td>{{$d->NIDN}}</td>
             <td>{{$d->Pendidikan_Terakhir}}</td>
             <td>{{$d->Jurusan_id}}</td>
