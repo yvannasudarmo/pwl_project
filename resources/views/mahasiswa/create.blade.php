@@ -31,26 +31,8 @@
             <td>:</td>
             <td><textarea name="Alamat"></textarea></td>
         </tr>
-        <tr>
-            <td colspan="3">
-                <input type="submit" value="Add">
-                <input type="reset" value="Clear">
-            </td>
-        </tr>
     </table>
-</form>
 
-<div>
-    <ul>
-    <li>Buatlah sebuah View dengan nama mahasiswa/create</li>
-    <li>Return View tersebut pada MahasiswaController fungsi create()</li>
-    <li>Tambahkan Route mahasiswa-create ke fungsi create tersebut</li>
-    <li>Route::post('/mahasiswa', [MahasiswaController::class, 'store'])->name('mahasiswa.save'); Tambah di route</li>
-    <li>Tambah Action dan Method di Form ini<br>action="{route('mahasiswa.save')}"  method="post"</li>
-    <li>Fungsi Di MahasiswaController -> Store <br>
-        $data = $request->except('_token');<br>
-        Mahasiswa::create($data);<br>
-        return redirect()->action([MahasiswaController::class, 'index']);
-    </li>
-    </ul>
-</div>
+<button type="Submit"> Add </button>
+<button type="reset"> Clear </button>
+</form>

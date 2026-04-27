@@ -1,3 +1,4 @@
+{{$mahasiswa}}
 <form action="{{route('mahasiswa.edit', $mahasiswa->id)}}"  method="post">
     @csrf
     <input type="hidden" name="id" value="{{$mahasiswa->id}}">

@@ -1,3 +1,6 @@
+<a href="{{route('mahasiswa.add')}}"> 
+    <input type="button" value="Create">
+</a>
 <table border="1">
     <thead>
         <th>No</th>
@@ -19,6 +22,16 @@
         <td>{{$m->Tanggal_Lahir}}</td>
         <td>{{$m->Alamat}}</td>
         <td>{{$m->created_at}}</td>
+        <td>
+            <a href="{{route('mahasiswa.update', $m->id)}}"> 
+                <input type="button" value="Edit">
+            </a>
+            <form action="{{route('mahasiswa.delete', $m->id)}}"  method="post">
+            @csrf
+            <input type="hidden" name="id" value="{{$m->id}}">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Delete">
+        </td>    
     </tr>
     @endforeach
 </table>

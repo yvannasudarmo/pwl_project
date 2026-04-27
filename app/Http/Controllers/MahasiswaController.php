@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\mahasiswa;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
@@ -31,7 +31,6 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
-
         Mahasiswa::create($data);
 
         return redirect()->action([MahasiswaController::class, 'index']);
@@ -40,7 +39,7 @@ class MahasiswaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(mahasiswa $id)
+    public function show($id)
     {
         return Mahasiswa::find($id);
     }
@@ -72,7 +71,8 @@ class MahasiswaController extends Controller
      */
     public function destroy($id)
     {
-        Mahasiswa::find($id)->delete();
+        
+         Mahasiswa::find($id)->delete();
 
          return redirect()->action([MahasiswaController::class, 'index']);
     }
