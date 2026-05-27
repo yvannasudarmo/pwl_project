@@ -28,13 +28,21 @@ class MatakuliahController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $data = $request->except('_token');
-        matakuliah::create($data);
+   public function store(Request $request)
+{
+    // Menggunakan query builder untuk memaksa data masuk tanpa pengaruh $fillable
+    \Illuminate\Support\Facades\DB::table('table_matakuliah')->insert([
+        'Jurusan_Id' => $request->input('Jurusan_Id'),
+        'Kode_MK'    => $request->input('Kode_MK'),
+        'Nama_MK'    => $request->input('Nama_MK'),
+        'SKS'        => $request->input('SKS'),
+        'Kode_Dosen' => $request->input('Kode_Dosen'),
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
 
-        return redirect()->action([MatakuliahController::class, 'index']);
-    }
+    return redirect()->action([MatakuliahController::class, 'index']);
+}
 
     /**
      * Display the specified resource.
