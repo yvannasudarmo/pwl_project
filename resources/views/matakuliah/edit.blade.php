@@ -19,7 +19,7 @@
         <tr>
             <td>SKS</td>
             <td>:</td>
-            <td><input type="text" name="SKS" value="{{$matakuliah->SKS}}"></td>
+            <td><input type="number" name="SKS" value="{{$matakuliah->SKS}}"></td>
         </tr>
         <tr>
             <td>Kode Dosen</td>
