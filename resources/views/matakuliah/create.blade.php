@@ -14,7 +14,7 @@
         <tr>
             <td>Nama Mata Kuliah</td>
             <td>:</td>
-            <td><input type="text" name="Nama_MK></td>
+            <td><input type="text" name="Nama_MK"></td>
         </tr>
         <tr>
             <td>SKS</td>
