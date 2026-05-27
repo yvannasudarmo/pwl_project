@@ -25,7 +25,7 @@
             <td>{{$j->created_at}}</td>
             <td>{{$j->updated_at}}</td>
             <td>
-                <a href={{route('jurusan.update', $j->id)}}>
+                <a href="{{route('jurusan.update', $j->id)}}">
                     <input type="button" value="Edit">
                 </a>
                 <form action="{{route('jurusan.delete', $j->id)}}"  method="post">

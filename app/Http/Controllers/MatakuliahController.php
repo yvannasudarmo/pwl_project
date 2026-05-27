@@ -12,7 +12,9 @@ class MatakuliahController extends Controller
      */
     public function index()
     {
-        //
+        return view('matakuliah.index', [
+            'matakuliah' => matakuliah::all()
+
     }
 
     /**
@@ -20,7 +22,7 @@ class MatakuliahController extends Controller
      */
     public function create()
     {
-        //
+        return view('matakuliah.create', []);
     }
 
     /**
@@ -28,38 +30,50 @@ class MatakuliahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except('_token');
+        matakuliah::create($data);
+
+        return redirect()->action([MatakuliahController::class, 'index']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(matakuliah $matakuliah)
+    public function show($id)
     {
-        //
+        return matakuliah::find($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(matakuliah $matakuliah)
+    public function edit($id)
     {
-        //
+       return view('matakuliah.edit', [
+            'matakuliah' => matakuliah::find($id)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, matakuliah $matakuliah)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->except('_token', 'id', '_method');
+
+        matakuliah::find($id)->update($data);
+
+        return redirect()->action([MatakuliahController::class, 'index']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(matakuliah $matakuliah)
+    public function destroy($id)
     {
-        //
+        
+         matakuliah::find($id)->delete();
+
+         return redirect()->action([MatakuliahController::class, 'index']);
     }
 }
