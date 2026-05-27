@@ -12,6 +12,7 @@
     </a>
     <table class="table table-striped">
         <thead>
+            <th>No</th>
             <th>Nama Lengkap</th>
             <th>NIM</th>
             <th>NISN</th>

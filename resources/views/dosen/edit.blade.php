@@ -1,5 +1,5 @@
 {{$dosen}}
-<form action="{{route('dosen.edit', $dosen->id)}}"  method="post">
+<form action="{{route('dosen.update', $dosen->id)}}"  method="post">
     @csrf
     <input type="hidden" name="id" value="{{$dosen->id}}">
     <input type="hidden" name="_method" value="PUT">

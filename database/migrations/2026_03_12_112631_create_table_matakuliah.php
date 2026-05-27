@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('table_matakuliah', function (Blueprint $table) {
             $table->id();
-            $table->string("Jurusan_id");
+            $table->string("Jurusan_Id");
             $table->string("Kode_MK");
             $table->string("Nama_MK");
             $table->string("SKS");
-            $table->string("Dosen_Id");
+            $table->string("Kode_Dosen");
             $table->timestamps();
         });
     }

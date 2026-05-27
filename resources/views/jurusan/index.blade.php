@@ -12,6 +12,7 @@
     </a>
     <table class="table table-striped">
         <thead>
+            <th>No</th>
             <th>Nama Jurusan</th>
             <th>Kode Jurusan</th>
             <th>Tanggal Dibuat</th>

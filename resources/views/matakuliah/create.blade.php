@@ -4,7 +4,7 @@
         <tr>
             <td>Jurusan</td>
             <td>:</td>
-            <td><input type="text" name="Jurusan_id"></td>
+            <td><input type="text" name="Jurusan_Id"></td>
         </tr>
         <tr>
             <td>Kode Mata Kuliah</td>
@@ -24,7 +24,7 @@
         <tr>
             <td>KODE DOSEN</td>
             <td>:</td>
-            <td><input type="text" name="Kode_MK"></td>
+            <td><input type="text" name="Kode_Dosen"></td>
         </tr>
     </table>
 

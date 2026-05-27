@@ -1,10 +1,10 @@
-<form action="{{route('matakuliah.save')}}"  method="post">
+<form action="{{route('matakuliah.update')}}"  method="post">
     @csrf
     <table>
         <tr>
             <td>Jurusan</td>
             <td>:</td>
-            <td><input type="text" name="Jurusan_id"></td>
+            <td><input type="text" name="Jurusan_Id"></td>
         </tr>
         <tr>
             <td>Kode Mata Kuliah</td>
@@ -22,9 +22,9 @@
             <td><input type="text" name="SKS"></td>
         </tr>
         <tr>
-            <td>KODE DOSEN</td>
+            <td>Kode Dosen</td>
             <td>:</td>
-            <td><input type="text" name="Kode_MK"></td>
+            <td><input type="text" name="Kode_Dosen"></td>
         </tr>
     </table>
 
