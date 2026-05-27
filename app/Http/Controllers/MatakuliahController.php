@@ -28,7 +28,7 @@ class MatakuliahController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function save(Request $request)
+    public function store(Request $request)
     {
         $data = $request->except('_token');
         matakuliah::create($data);
