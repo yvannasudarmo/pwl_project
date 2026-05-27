@@ -22,7 +22,7 @@
             <td><input type="text" name="SKS"></td>
         </tr>
         <tr>
-            <td>KODE DOSEN</td>
+            <td>Kode Dosen</td>
             <td>:</td>
             <td><input type="text" name="Kode_Dosen"></td>
         </tr>
