@@ -1,4 +1,8 @@
-<form action="{{route('matakuliah.update')}}"  method="post">
+{{$matakuliah}}
+<form action="{{route('matakuliah.update', $matakuliah->id)}}"  method="post">
+    @csrf
+    <input type="hidden" name="id" value="{{$matakuliah->id}}">
+    <input type="hidden" name="_method" value="PUT">
     @csrf
     <table>
         <tr>
