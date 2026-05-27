@@ -14,7 +14,7 @@ class MatakuliahController extends Controller
     {
         return view('matakuliah.index', [
             'matakuliah' => matakuliah::all()
-
+        ]);
     }
 
     /**
@@ -49,7 +49,7 @@ class MatakuliahController extends Controller
      */
     public function edit($id)
     {
-       return view('matakuliah.edit', [
+        return view('matakuliah.edit', [
             'matakuliah' => matakuliah::find($id)
         ]);
     }

@@ -33,6 +33,14 @@ Route::get('/jurusan-edit/{id}', [JurusanController::class, 'edit'])->name('juru
 Route::put('/jurusan/{id}', [JurusanController::class, 'update'])->name('jurusan.edit');
 Route::delete('/jurusan/{id}', [JurusanController::class, 'destroy'])->name('jurusan.delete');
 
+Route::get('/matakuliah', [MatakuliahController::class, 'index']);
+Route::get('/matakuliah/{id}', [MatakuliahController::class, 'show']);
+Route::get('/matakuliah-create', [MatakuliahController::class, 'create'])->name('matakuliah.add');
+Route::post('/matakuliah', [MatakuliahController::class, 'store'])->name('matakuliah.save');
+Route::get('/matakuliah-edit/{id}', [MatakuliahController::class, 'edit'])->name('matakuliah.update');
+Route::put('/matakuliah/{id}', [MatakuliahController::class, 'update'])->name('matakuliah.edit');
+Route::delete('/matakuliah/{id}', [MatakuliahController::class, 'destroy'])->name('matakuliah.delete');
+
 // Route::get      => Get Data     => R => select
 // SELECT ALL   /   SELECT SPESIFIK
 // Route::post     => Save Data    => C => insert into  /   create

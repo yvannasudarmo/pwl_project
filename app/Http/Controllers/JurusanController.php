@@ -14,7 +14,8 @@ class JurusanController extends Controller
     {
         return view('jurusan.index', [
             'jurusan' => jurusan::all()
-        ]);    }
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +30,7 @@ class JurusanController extends Controller
      */
     public function store(Request $request)
     {
-       $data = $request->except('_token');
+        $data = $request->except('_token');
         jurusan::create($data);
 
         return redirect()->action([JurusanController::class, 'index']);
@@ -58,7 +59,7 @@ class JurusanController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $data = $request->except('_token', 'id', '_method');
+        $data = $request->except('_token', 'id', '_method');
 
         jurusan::find($id)->update($data);
 
@@ -68,8 +69,9 @@ class JurusanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(jurusan $jurusan)
+    public function destroy($id)
     {
+        
          jurusan::find($id)->delete();
 
          return redirect()->action([JurusanController::class, 'index']);
