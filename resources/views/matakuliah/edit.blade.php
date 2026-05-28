@@ -30,8 +30,7 @@
             <td>:</td>
             <td><input type="text" name="Kode_Dosen" value="{{$matakuliah->Kode_Dosen}}"></td>
         </tr>
-    </table>
-
 <button type="Submit">Add</button>
 <button type="reset"> Clear </button>
+    </table>
 </form>
