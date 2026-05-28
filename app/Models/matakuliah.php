@@ -13,6 +13,6 @@ class matakuliah extends Model
         'Kode_MK',
         'Nama_MK',
         'SKS',
-        'Kode_Dosen'
+        'Dosen_Id'
     ];
 }

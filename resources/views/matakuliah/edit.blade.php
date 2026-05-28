@@ -26,9 +26,9 @@
             <td><input type="number" name="SKS" value="{{$matakuliah->SKS}}"></td>
         </tr>
         <tr>
-            <td>Kode Dosen</td>
+            <td>Dosen Id</td>
             <td>:</td>
-            <td><input type="text" name="Kode_Dosen" value="{{$matakuliah->Kode_Dosen}}"></td>
+            <td><input type="text" name="Dosen_Id" value="{{$matakuliah->Dosen_Id}}"></td>
         </tr>
 <button type="Submit">Add</button>
 <button type="reset"> Clear </button>

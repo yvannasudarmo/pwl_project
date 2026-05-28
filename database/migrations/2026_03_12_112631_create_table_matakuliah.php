@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("Kode_MK");
             $table->string("Nama_MK");
             $table->string("SKS");
-            $table->string("Kode_Dosen");
+            $table->string("Dosen_Id");
             $table->timestamps();
         });
     }

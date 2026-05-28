@@ -8,7 +8,7 @@
         <th>Kode Mata Kuliah</th>
         <th>Nama Mata Kuliah</th>
         <th>SKS</th>
-        <th>Kode Dosen</th>
+        <th>Dosen Id</th>
         <th>Tanggal Dibuat</th>
         <th>Aksi</th>
     </thead>
@@ -19,7 +19,7 @@
         <td>{{$mk->Kode_MK}}</td>
         <td>{{$mk->Nama_MK}}</td>
         <td>{{$mk->SKS}}</td>
-        <td>{{$mk->Kode_Dosen}}</td>
+        <td>{{$mk->Dosen_Id}}</td>
         <td>{{$mk->created_at}}</td>
         <td>
             <a href="{{route('matakuliah.update', $mk->id)}}"> 
