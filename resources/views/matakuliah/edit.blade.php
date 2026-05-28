@@ -3,7 +3,6 @@
     @csrf
     <input type="hidden" name="id" value="{{$matakuliah->id}}">
     <input type="hidden" name="_method" value="PUT">
-    @csrf
     <table>
         <tr>
             <td>Jurusan</td>
