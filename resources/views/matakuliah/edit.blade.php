@@ -1,11 +1,11 @@
 {{$matakuliah}}
-<form action="{{route('matakuliah.update', $matakuliah->id)}}"  method="post">
+<form action="{{route('matakuliah.edit', $matakuliah->id)}}"  method="post">
     @csrf
     <input type="hidden" name="id" value="{{$matakuliah->id}}">
     <input type="hidden" name="_method" value="PUT">
     <table>
         <tr>
-            <td>Jurusan</td>
+            <td>Jurusan Id</td>
             <td>:</td>
             <td><input type="text" name="Jurusan_Id" value="{{$matakuliah->Jurusan_Id}}"></td>
         </tr>

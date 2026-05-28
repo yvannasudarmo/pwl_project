@@ -25,7 +25,7 @@
             <td><input type="text" name="Pendidikan_Terakhir" value="{{$dosen->Pendidikan_Terakhir}}"></td>
         </tr>
         <tr>
-            <td>Jurusan</td>
+            <td>Jurusan Id</td>
             <td>:</td>
             <td><input type="text" name="Jurusan_Id" value="{{$dosen->Jurusan_Id}}"></td>
         </tr>
