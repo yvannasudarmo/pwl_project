@@ -1,9 +1,13 @@
 <?php
 
-use App\Http\Controllers\DosenController;
-use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KRSController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\DosenController;
+use App\Http\Controllers\MataKuliahController;
+use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\KelasController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,6 +45,13 @@ Route::post('/matakuliah', [MatakuliahController::class, 'store'])->name('mataku
 Route::get('/matakuliah-edit/{id}', [MatakuliahController::class, 'edit'])->name('matakuliah.update');
 Route::put('/matakuliah/{id}', [MatakuliahController::class, 'update'])->name('matakuliah.edit');
 Route::delete('/matakuliah/{id}', [MatakuliahController::class, 'destroy'])->name('matakuliah.delete');
+
+Route::get('/register', [AuthController::class, 'registerView']);
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::get('/login', [AuthController::class, 'loginView']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
 
 // Route::get      => Get Data     => R => select
 // SELECT ALL   /   SELECT SPESIFIK
