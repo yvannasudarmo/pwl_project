@@ -41,7 +41,6 @@
 @php
   $lang = request('lang', app()->getLocale() ?? 'id');
   $trId = [
-    'home'=>'Home',
     'apply'=>'Daftar Sekarang',
     'profile'=>'Lihat Profil',
     'agenda'=>'Agenda Terdekat',
@@ -52,7 +51,6 @@
     'pmb'=>'Penerimaan Mahasiswa Baru'
   ];
   $trEn = [
-    'home'=>'Home',
     'apply'=>'Apply Now',
     'profile'=>'View Profile',
     'agenda'=>'Upcoming Events',
@@ -72,13 +70,9 @@
     
     <div class="flex items-center flex-shrink-0">
       <a class="flex items-center no-underline" href="{{ route('landing') }}">
-        <img class="rounded-full" src="{{ asset('images/ITB-SS.jpg') }}" width="56" alt="ITBSS" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
+        <img class="rounded-full" src="{{ asset('LOGO-ITBSS.jpg') }}" width="56" alt="ITBSS" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
         <span class="font-bold color-dark ml-2 hidden md:inline text-lg">Institut Teknologi & Bisnis Sabda Setia</span>
       </a>
-    </div>
-
-    <div class="flex-grow flex justify-center">
-      <a class="text-[1.075rem] font-bold text-dark hover:text-brand-blue px-4 py-2 transition" href="{{ route('landing') }}">{{ $tr['home'] }}</a>
     </div>
 
     <div class="flex items-center gap-2 flex-shrink-0">
