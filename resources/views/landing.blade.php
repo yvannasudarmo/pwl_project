@@ -137,7 +137,7 @@
     <div class="nav-row" style="width:100%">
       <!-- LEFT: logo + brand -->
       <div class="nav-left">
-        <a class="d-flex align-items-center" href="{{ route('dashboard') }}" style="text-decoration:none">
+        <a class="d-flex align-items-center" href="{{ route('landing') }}" style="text-decoration:none">
           <img src="{{ asset('images/ITB-SS.jpg') }}" width="56" alt="ITBSS" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
           <span class="brand-text d-none d-md-inline">Institut Teknologi & Bisnis Sabda Setia</span>
         </a>
@@ -145,7 +145,7 @@
 
       <!-- CENTER: Home (bigger) -->
       <div class="nav-center">
-        <a class="nav-link home" href="{{ route('dashboard') }}">{{ $tr['home'] }}</a>
+        <a class="nav-link home" href="{{ route('landing') }}">{{ $tr['home'] }}</a>
       </div>
 
       <!-- RIGHT: language, user, menu siakad -->
@@ -162,7 +162,7 @@
           <div class="dropdown">
             <button class="user-btn btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">{{ auth()->user()->name }}</button>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+              <li><a class="dropdown-item" href="{{ route('landing') }}">Dashboard</a></li>
               <li><hr class="dropdown-divider"></li>
               <li>
                 <form action="{{ route('logout') }}" method="POST">@csrf<button type="submit" class="dropdown-item text-danger">Logout</button></form>
