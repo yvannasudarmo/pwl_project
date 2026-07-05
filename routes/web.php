@@ -13,8 +13,8 @@ use App\Http\Controllers\KRSController;
 use App\Http\Controllers\KRSDetailController;
 
 Route::get('/', function () {
-    return view('dashboard');
-})->name('dashboard');
+    return view('landing');
+})->name('landing');
 
 Route::get('/login', [AuthController::class, 'loginView'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
