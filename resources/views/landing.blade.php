@@ -139,7 +139,7 @@
 </nav>
 
 <header class="relative w-full min-h-[640px] lg:h-screen overflow-hidden flex items-center bg-[#071024] py-12 lg:py-0" role="banner" aria-label="Penerimaan">
-  <img class="absolute inset-0 w-full height-full object-cover object-center z-10 opacity-60" src="{{ asset('images/Gedung-ITBSS-scaled.jpg') }}" alt="Hero" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
+  <img class="absolute inset-0 w-full height-full object-cover object-center z-10 opacity-60" src="{{ asset('images/Gedung-ITBSS.jpg') }}" alt="Hero" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
   <div class="absolute inset-0 z-20 bg-gradient-to-r from-[#030a19]/90 via-[#030a19]/60 to-[#030a19]/20" aria-hidden="true"></div>
 
   <div class="relative z-30 max-w-[1180px] mx-auto w-full px-6 grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-center">
