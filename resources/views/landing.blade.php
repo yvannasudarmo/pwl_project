@@ -70,7 +70,7 @@
     
     <div class="flex items-center flex-shrink-0">
       <a class="flex items-center no-underline" href="{{ route('landing') }}">
-        <img class="rounded-full" src="{{ asset('images/LOGO-ITBSS.jpg') }}" width="56" alt="ITBSS" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
+        <img class="rounded-full" src="{{ asset('images/LOGO-ITBSS.png') }}" width="56" alt="ITBSS" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
         <span class="font-bold color-dark ml-2 hidden md:inline text-lg">Institut Teknologi & Bisnis Sabda Setia</span>
       </a>
     </div>
@@ -261,7 +261,7 @@
 <footer class="bg-[#0b1724] text-white py-10 mt-12 w-full">
   <div class="max-w-[1180px] mx-auto px-6 text-center">
     <img src="{{ asset('images/Logo-White.png') }}" class="brightness-0 invert max-w-[200px] mx-auto block" alt="ITBSS White Logo" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
-    <p class="text-white/90 text-sm mt-4">Copyright © 2026 Institut Teknologi & Bisnis Sabda Setia - Aprianto</p>
+    <p class="text-white/90 text-sm mt-4">Copyright © 2026 Institut Teknologi & Bisnis Sabda Setia - Yvanna Sudarmo</p>
   </div>
 </footer>
 
