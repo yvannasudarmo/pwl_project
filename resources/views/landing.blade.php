@@ -266,7 +266,7 @@
 
 <footer class="bg-[#0b1724] text-white py-10 mt-12 w-full">
   <div class="max-w-[1180px] mx-auto px-6 text-center">
-    <img src="{{ asset('images/Logo-ITBSS.png') }}" class="brightness-0 invert max-w-[200px] mx-auto block" alt="ITBSS White Logo" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
+    <img src="{{ asset('images/Logo-White.png') }}" class="brightness-0 invert max-w-[200px] mx-auto block" alt="ITBSS White Logo" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
     <p class="text-white/90 text-sm mt-4">Copyright © 2026 Institut Teknologi & Bisnis Sabda Setia - Aprianto</p>
   </div>
 </footer>
