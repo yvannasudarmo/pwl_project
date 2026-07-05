@@ -164,10 +164,6 @@
       <div class="rounded-xl bg-white shadow-[0_14px_40px_rgba(3,10,25,0.16)] overflow-hidden">
         <div class="p-6 text-dark">
           <h5 class="text-lg font-bold mb-4">📅 {{ $tr['agenda'] }}</h5>
-          <div class="mb-4 text-sm"><strong class="text-brand-blue block">1–5 Agustus 2025</strong>Pendaftaran Gelombang 1</div>
-          <div class="mb-4 text-sm"><strong class="text-brand-blue block">20 Juli 2025</strong>Webinar & Info Session</div>
-          <div class="text-sm"><strong class="text-brand-blue block">15 September 2025</strong>Pengumuman Hasil Seleksi</div>
-        </div>
       </div>
     </div>
   </div>
