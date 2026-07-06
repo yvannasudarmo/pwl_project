@@ -104,32 +104,36 @@
       @endauth
 
       {{-- Menu SIAKAD --}}
-      @if ($user->role != 'guest')
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Menu
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Dosen</a></li>
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">Mahasiswa</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Jurusan</a></li>
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MataKuliahController::class, 'index']) }}">Mata Kuliah</a></li>
-              </ul>
-            </li>
-            @endif
-            @if ($user->role == 'mahasiswa')
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{{  action([App\Http\Controllers\KelasController::class, 'index']) }}">Kelas</a></li>
-            </li>
-            @endif
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li> -->
-          </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button class="btn btn-outline-success" type="submit">Search</button>
+      <div class="relative inline-block text-left dropdown-container ml-1" x-data="{ open: false }">
+  
+  <button @click="open = !open" class="dropdown-toggle px-3.5 py-1.5 rounded-full border border-[rgba(11,35,64,0.06)] bg-transparent font-semibold text-sm hover:bg-gray-100 transition flex items-center gap-1">
+    Menu SIAKAD
+  </button>
+  
+  <div x-show="open" @click.outside="open = false" class="dropdown-menu absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50" style="display: none;">
+    @php
+      $menus = [
+        ['label' => 'Mahasiswa', 'ctrl' => App\Http\Controllers\MahasiswaController::class],
+        ['label' => 'Dosen', 'ctrl' => App\Http\Controllers\DosenController::class],
+        ['label' => 'Jurusan', 'ctrl' => App\Http\Controllers\JurusanController::class],
+        ['label' => 'Mata Kuliah', 'ctrl' => App\Http\Controllers\MatakuliahController::class],
+        ['label' => 'Kelas', 'ctrl' => App\Http\Controllers\KelasController::class],
+        ['label' => 'KRS', 'ctrl' => App\Http\Controllers\KRSController::class],
+      ];
+    @endphp
+    @foreach($menus as $menu)
+      @auth
+        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ action([$menu['ctrl'],'index']) }}">{{ $menu['label'] }}</a>
+      @else
+        <a class="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100" href="{{ route('login', ['redirect'=>url()->current()]) }}">{{ $menu['label'] }} (Login untuk akses)</a>
+      @endauth
+    @endforeach
+  </div>
+</div>
+
+    </div>
+  </div>
+</nav>
 
 <header class="relative w-full min-h-[640px] lg:h-screen overflow-hidden flex items-center bg-[#071024] py-12 lg:py-0" role="banner" aria-label="Penerimaan">
   <img class="absolute inset-0 w-full height-full object-cover object-center z-10 opacity-60" src="{{ asset('images/Gedung-ITBSS.jpg') }}" alt="Hero" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
