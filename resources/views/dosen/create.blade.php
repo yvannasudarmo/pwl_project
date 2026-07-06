@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <form action="{{ route('dosen.add') }}" method="POST" class="p-6 space-y-5">
+    <form action="{{ route('dosen.index') }}" method="POST" class="p-6 space-y-5">
       @csrf
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
