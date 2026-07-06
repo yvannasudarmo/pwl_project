@@ -293,7 +293,7 @@
                                 <td class="fw-semibold text-white">{{ $m->Fullname }}</td>
                                 <td><span class="badge bg-secondary text-white px-2 py-1">{{ $m->NIM }}</span></td>
                                 <td>{{ $m->NISN ?? '-' }}</td>
-                                <td>{{ $m->Tempat_Lahirahir }}, {{ $m->Tanggal_Lahir }}</td>
+                                <td>{{ $m->Tempat_Lahir }}, {{ $m->Tanggal_Lahir }}</td>
                                 <td>{{ $m->Alamat }}</td>
                                 <td>{{ $m->created_at }}</td>
                                 <td>
