@@ -11,69 +11,107 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    // ... (fungsi index, create, store, dll bisa dibiarkan atau dihapus jika tidak dipakai)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
 
-    // Register Handler
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(User $user)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(User $user)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, User $user)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(User $user)
+    {
+        //
+    }
+
+    //Register
     public function register(Request $request)
     {
-        // 1. Validasi Input (Gunakan kebiasaan Laravel Web: back dengan error)
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
         }
 
-        // 2. Buat User Baru
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
         ]);
 
-        // 3. Otomatis Login setelah Register (Session-based)
-        Auth::login($user);
-
-        return redirect()->route('mahasiswa.index');
+        return redirect(route('mahasiswa.index'));
     }
 
-    // Login Handler (Session-Based untuk Web/Blade)
+    // User login
     public function login(Request $request)
     {
-        // 1. Validasi Input Form Login
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
         $credentials = $request->only('email', 'password');
 
         try {
-            // 2. Lakukan Autentikasi Session
-            // Atribut 'remember' opsional, bisa ditambah jika ada checkbox remember me
-            if (Auth::attempt($credentials, $request->has('remember'))) {
-                
-                // 3. Regenerasi session untuk keamanan (mencegah Session Fixation)
-                $request->session()->regenerate();
-
-                // 4. Redirect ke halaman tujuan semula (misal setelah klik dropdown SIAKAD) atau ke default mahasiswa.index
-                return redirect()->intended(route('mahasiswa.index'));
+            if (! $token = Auth::attempt($credentials)) {
+                return response()->json(['error' => 'Invalid credentials'], 401);
             }
 
-            // Jika gagal login, kembali ke form dengan pesan error
-            return redirect()->back()->withErrors([
-                'email' => 'Email atau password yang Anda masukkan salah.',
-            ])->withInput($request->only('email'));
+            // Get the authenticated user.
+            $user = Auth::user();
 
+            // (optional) Attach the role to the token.
+            // $token = Auth::claims(['role' => $user->role])->fromUser($user);
+            
+            return redirect(route('mahasiswa.index'), 302, ['Authorization' => 'Bearer ' . $token]);
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan sistem, silakan coba lagi.');
+            return response()->json(['error' => 'Could not create token'], 500);
         }
     }
 
-    // Register Form
+    //Register Form
     public function registerView(Request $request)
     {
         return view('register');
@@ -84,15 +122,13 @@ class AuthController extends Controller
     {
         return view('login');
     }
-
-    // Logout Handler (Sudah Benar)
     public function logout(Request $request)
     {
-        Auth::logout();
+    Auth::logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        return redirect()->route('login'); // Diarahkan kembali ke login atau dashboard
-    }
+    return redirect()->route('dashboard');
+}
 }
