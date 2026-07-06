@@ -84,7 +84,7 @@
         </div>
       </div>
 
-      <form action="{{ route('jurusan.save') }}" method="POST" class="p-6 space-y-5">
+      <form action="{{ route('jurusan.index') }}" method="POST" class="p-6 space-y-5">
         @csrf
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
