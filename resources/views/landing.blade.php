@@ -92,7 +92,8 @@
           <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50">
             <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ route('landing') }}">Dashboard</a>
             <hr class="my-1 border-gray-200">
-            <form action="{{ route('logout') }}" method="POST" class="m-0">
+            <form action="{{ route('logout')
+            }}" method="POST" class="m-0">
               @csrf
               <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
             </form>
@@ -103,30 +104,32 @@
       @endauth
 
       {{-- Menu SIAKAD --}}
-      <div class="relative inline-block text-left dropdown-container ml-1">
-        <button class="dropdown-toggle px-3.5 py-1.5 rounded-full border border-[rgba(11,35,64,0.06)] bg-transparent font-semibold text-sm hover:bg-gray-100 transition flex items-center gap-1">
-          Menu SIAKAD
-        </button>
-        <div class="dropdown-menu hidden absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50">
-          @php
-            $menus = [
-              ['label' => 'Mahasiswa', 'ctrl' => App\Http\Controllers\MahasiswaController::class],
-              ['label' => 'Dosen', 'ctrl' => App\Http\Controllers\DosenController::class],
-              ['label' => 'Jurusan', 'ctrl' => App\Http\Controllers\JurusanController::class],
-              ['label' => 'Mata Kuliah', 'ctrl' => App\Http\Controllers\MatakuliahController::class],
-              ['label' => 'Kelas', 'ctrl' => App\Http\Controllers\KelasController::class],
-              ['label' => 'KRS', 'ctrl' => App\Http\Controllers\KRSController::class],
-            ];
-          @endphp
-          @foreach($menus as $menu)
-            @auth
-              <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ action([$menu['ctrl'],'index']) }}">{{ $menu['label'] }}</a>
-            @else
-              <a class="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100" href="{{ route('login', ['redirect'=>url()->current()]) }}">{{ $menu['label'] }} (Login untuk akses)</a>
-            @endauth
-          @endforeach
-        </div>
-      </div>
+      <div class="relative inline-block text-left dropdown-container ml-1" x-data="{ open: false }">
+  
+  <button @click="open = !open" class="dropdown-toggle px-3.5 py-1.5 rounded-full border border-[rgba(11,35,64,0.06)] bg-transparent font-semibold text-sm hover:bg-gray-100 transition flex items-center gap-1">
+    Menu SIAKAD
+  </button>
+  
+  <div x-show="open" @click.outside="open = false" class="dropdown-menu absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50" style="display: none;">
+    @php
+      $menus = [
+        ['label' => 'Mahasiswa', 'ctrl' => App\Http\Controllers\MahasiswaController::class],
+        ['label' => 'Dosen', 'ctrl' => App\Http\Controllers\DosenController::class],
+        ['label' => 'Jurusan', 'ctrl' => App\Http\Controllers\JurusanController::class],
+        ['label' => 'Mata Kuliah', 'ctrl' => App\Http\Controllers\MatakuliahController::class],
+        ['label' => 'Kelas', 'ctrl' => App\Http\Controllers\KelasController::class],
+        ['label' => 'KRS', 'ctrl' => App\Http\Controllers\KRSController::class],
+      ];
+    @endphp
+    @foreach($menus as $menu)
+      @auth
+        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ action([$menu['ctrl'],'index']) }}">{{ $menu['label'] }}</a>
+      @else
+        <a class="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100" href="{{ route('login', ['redirect'=>url()->current()]) }}">{{ $menu['label'] }} (Login untuk akses)</a>
+      @endauth
+    @endforeach
+  </div>
+</div>
 
     </div>
   </div>
