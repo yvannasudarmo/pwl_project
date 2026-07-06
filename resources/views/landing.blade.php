@@ -178,7 +178,6 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="rounded-xl shadow-[0_8px_24px_rgba(2,6,23,0.06)] p-6 bg-white flex flex-col items-center text-center transition hover:-translate-y-1 duration-300">
-        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-gradient-to-b from-[#eef5ff] to-[#e3efff] mb-4">
           <img class="w-9 h-9 object-contain" src="{{ asset('images/logo-SI.png') }}" alt="STI" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
         </div>
         <h6 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Program Studi</h6>
