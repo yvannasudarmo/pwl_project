@@ -1,51 +1,107 @@
-<form action="{{ route('dosen.save') }}" method="post">    
-    @csrf
-<table>
-        <tr>
-            <td>Nama Lengkap</td>
-            <td>:</td>
-            <td><input type="text" name="Fullname"></td>
-        </tr>
-        <tr>
-            <td>Nomor Induk Pengajar</td>
-            <td>:</td>
-            <td><input type="text" name="NIP"></td>
-        </tr>
-        <tr>
-            <td>Nomor Induk Dosen Nasional</td>
-            <td>:</td>
-            <td><input type="text" name="NIDN"></td>
-        </tr>
-        <tr>
-            <td>Pendidikan Terakhir</td>
-            <td>:</td>
-            <td><input type="text" name="Pendidikan_Terakhir"></td>
-        </tr>
-        <tr>
-            <td>Jurusan</td>
-            <td>:</td>
-            <td><input type="text" name="Jurusan_Id"></td>
-        </tr>
-        <tr>
-            <td>Tempat Lahir</td>
-            <td>:</td>
-            <td><input type="text" name="Tempat_Lahir"></td>
-        </tr>
-        <tr>
-            <td>Tanggal Lahir</td>
-            <td>:</td>
-            <td><input type="text" name="Tanggal_Lahir"></td>
-        </tr>
-        <tr>
-            <td>Alamat</td>
-            <td>:</td>
-            <td><textarea name="Alamat"></textarea></td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <input type="submit" value="Add">
-                <input type="reset" value="Clear">
-            </td>
-        </tr>
-    </table>
-</form>
+<!doctype html>
+<html lang="{{ request('lang', app()->getLocale() ?? 'id') }}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ITBSS - Tambah Dosen</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-blue': '#0d6efd',
+            'dark': '#0b2340',
+            'bg-gray': '#f5f7fb',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #f5f7fb;
+      color: #0b2340;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+
+  <div class="w-full max-w-2xl bg-white rounded-xl shadow-[0_14px_40px_rgba(3,10,25,0.06)] overflow-hidden border border-gray-100">
+    
+    <div class="bg-dark p-6 text-white flex items-center gap-4">
+      <div class="p-2.5 bg-white/10 rounded-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-wide">Form Tambah Dosen</h1>
+        <p class="text-xs text-gray-300 mt-0.5">SIAKAD Institut Teknologi & Bisnis Sabda Setia</p>
+      </div>
+    </div>
+
+    <form action="{{ route('dosen.add') }}" method="POST" class="p-6 space-y-5">
+      @csrf
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-dark mb-1">Nama Lengkap</label>
+          <input type="text" name="Fullname" placeholder="Masukkan nama lengkap beserta gelar" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-dark mb-1">Nomor Induk Pengajar (NIP)</label>
+          <input type="text" name="NIP" placeholder="Contoh: 198901..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-dark mb-1">Nomor Induk Dosen Nasional (NIDN)</label>
+          <input type="text" name="NIDN" placeholder="Contoh: 110203..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-dark mb-1">Pendidikan Terakhir</label>
+          <input type="text" name="Pendidikan_Terakhir" placeholder="Contoh: S2 Magister Komputer" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-dark mb-1">Jurusan</label>
+          <input type="text" name="Jurusan_Id" placeholder="ID Jurusan" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-dark mb-1">Tempat Lahir</label>
+          <input type="text" name="Tempat_Lahir" placeholder="Contoh: Pontianak" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-dark mb-1">Tanggal Lahir</label>
+          <input type="date" name="Tanggal_Lahir" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-dark mb-1">Alamat</label>
+          <textarea name="Alamat" rows="3" placeholder="Masukkan alamat lengkap rumah..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required></textarea>
+        </div>
+
+      </div>
+
+      <div class="flex justify-end gap-3 pt-3 border-t border-gray-100">
+        <button type="reset" class="px-5 py-2 bg-gray-100 text-gray-700 font-medium rounded-md hover:bg-gray-200 transition text-sm">
+          Clear
+        </button>
+        <button type="submit" class="px-6 py-2 bg-brand-blue text-white font-medium rounded-md hover:bg-blue-700 transition text-sm shadow-sm shadow-brand-blue/20">
+          Simpan Data
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>
