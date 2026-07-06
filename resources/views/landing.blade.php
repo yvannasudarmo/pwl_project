@@ -208,32 +208,6 @@
       </div>
     </div>
 
-    <div class="relative rounded-xl overflow-hidden bg-white shadow-sm mt-10 group">
-      <div id="facilityCarousel" class="relative w-full h-[300px] sm:h-[450px] lg:h-[550px]">
-        
-        <div class="carousel-item active absolute inset-0 w-full h-full">
-          <img class="w-full h-full object-cover" src="{{ asset('images/Gedung-ITBSS-scaled.jpg') }}" alt="Fasilitas ITBSS 1" loading="lazy" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
-        </div>
-        <div class="carousel-item absolute inset-0 w-full h-full">
-          <img class="w-full h-full object-cover" src="{{ asset('images/photo-1.jpg') }}" alt="Fasilitas ITBSS 2" loading="lazy" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
-        </div>
-        <div class="carousel-item absolute inset-0 w-full h-full">
-          <img class="w-full h-full object-cover" src="{{ asset('images/photo-2.jpg') }}" alt="Fasilitas ITBSS 3" loading="lazy" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
-        </div>
-        <div class="carousel-item absolute inset-0 w-full h-full">
-          <img class="w-full h-full object-cover" src="{{ asset('images/photo-3.jpg') }}" alt="Fasilitas ITBSS 4" loading="lazy" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
-        </div>
-
-        <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full p-2.5 z-40 opacity-0 group-hover:opacity-100 transition duration-300">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-        </button>
-        <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full p-2.5 z-40 opacity-0 group-hover:opacity-100 transition duration-300">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-    </div>
-  </section>
-
   <section class="my-12">
     <h2 class="text-3xl font-extrabold text-dark mb-6">{{ $tr['why'] }}</h2>
 
