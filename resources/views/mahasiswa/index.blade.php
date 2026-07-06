@@ -6,179 +6,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SIAKAD - Data Mahasiswa</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* Mengatur halaman dengan flexbox agar footer nempel di bawah tanpa mengambang */
+        /* Struktur Flexbox Sticky Footer agar senada dengan Landing */
         html, body {
             height: 100%;
             margin: 0;
         }
 
         body {
-            background: linear-gradient(180deg, #0f3156 0%, #0b223f 40%, #07172b 70%, #040d1a 100%);
+            background-color: #f5f7fb;
+            color: #0b2340;
             display: flex;
             flex-direction: column;
-            color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
         }
 
-        /* Container utama akan mengambil sisa ruang kosong agar mendorong footer ke bawah */
+        /* Container utama mengambil sisa ruang kosong */
         .content-grow {
             flex: 1 0 auto;
         }
 
-        /* --- STYLING NAVBAR PREMIUM --- */
+        /* --- STYLING NAVBAR CLEAN LIGHT (Senada Landing) --- */
         .navbar {
-            background: rgba(11, 34, 63, 0.4) !important;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background-color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(9, 30, 63, 0.06) !important;
             padding: 12px 0;
+            border-bottom: 1px solid rgba(11, 35, 64, 0.05);
         }
 
         .logo-wrapper {
-            width: 45px;
-            height: 45px;
-            background: #ffffff; 
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             overflow: hidden;
         }
 
         .logo-wrapper img {
-            width: 85%;
-            height: 85%;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
+            border-radius: 50%;
         }
 
         .brand-text {
             font-weight: 700;
-            font-size: 1.15rem;
-            letter-spacing: 0.5px;
-            color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 1.1rem;
+            color: #0b2340;
         }
 
         .nav-link {
-            color: rgba(255, 255, 255, 0.85) !important;
+            color: #0b2340 !important;
             font-weight: 500;
-            transition: all 0.3s;
+            transition: all 0.2s;
         }
 
         .nav-link:hover, .nav-link.active {
-            color: #90caf9 !important;
+            color: #0d6efd !important;
         }
 
         .dropdown-menu {
-            background: rgba(16, 28, 54, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .dropdown-item {
-            color: rgba(255, 255, 255, 0.85);
+            color: #4a5568;
+            font-size: 0.9rem;
         }
 
         .dropdown-item:hover {
-            background: rgba(144, 202, 249, 0.15);
-            color: #90caf9;
+            background-color: #f1f5f9;
+            color: #0d6efd;
         }
 
-        /* Search in navbar */
+        /* Search Bar Light Theme */
         .navbar .search-control {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: #fff;
-            border-radius: 28px;
-            padding: 8px 14px;
-            width: 100%;
-            max-width: 380px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            color: #0b2340;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.875rem;
         }
+        
+        .navbar .search-control::placeholder {
+            color: #94a3b8;
+        }
+
         .btn-search {
-            border-radius: 28px;
-            padding: 7px 14px;
-            border: 1px solid rgba(144,202,249,0.35);
-            color: #90caf9;
+            border-radius: 20px;
+            padding: 6px 16px;
+            border: 1px solid #0d6efd;
+            color: #0d6efd;
             background: transparent;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-search:hover {
+            background: #0d6efd;
+            color: #ffffff;
         }
 
+        /* --- BUTTON CREATION --- */
         .btn-create {
-            background: linear-gradient(90deg, #1e5bb0 0%, #0f3069 100%);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            font-weight: 600;
-            border-radius: 30px;
-            padding: 8px 18px;
-            transition: all 0.3s ease;
+            background: #0d6efd;
+            border: none;
+            color: white !important;
+            font-weight: 500;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
         }
-        .btn-create:hover { transform: translateY(-2px); }
+        .btn-create:hover { 
+            background: #0b5ed7;
+            transform: translateY(-1px); 
+        }
 
-        /* --- TABLE CONTAINER & GLASSMORPHISM --- */
+        /* --- WHITE CARD BOX & TABLE CLEAN LIGHT --- */
         .main-title {
             font-weight: 800;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            color: #0b2340;
         }
 
         .table-responsive-wrapper {
-            background: rgba(16, 28, 54, 0.55);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            background: #ffffff;
+            border: 1px solid rgba(11, 35, 64, 0.06);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(9, 30, 63, 0.03);
         }
 
         .table {
-            color: #e2f0ff !important;
+            color: #334155 !important;
+            margin-bottom: 0;
         }
 
         .table thead th {
-            color: #90caf9;
+            color: #475569;
             font-weight: 600;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #f1f5f9;
+            background-color: #f8fafc;
+            padding: 12px 8px;
+        }
+
+        .table tbody tr {
+            transition: background-color 0.2s;
         }
 
         .table tbody td {
             vertical-align: middle;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid #f1f5f9;
+            padding: 14px 8px;
+            font-size: 0.9rem;
         }
 
+        /* Action Buttons styling */
         .btn-action-edit {
-            background: rgba(144, 202, 249, 0.15);
-            border: 1px solid #90caf9;
-            color: #90caf9;
-            border-radius: 20px;
-            padding: 5px 15px;
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
         .btn-action-edit:hover {
-            background: #90caf9;
-            color: #07172b;
+            border-color: #0d6efd;
+            color: #0d6efd;
+            background: #f0f7ff;
         }
 
         .btn-action-delete {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid #ef4444;
+            background: #fff;
+            border: 1px solid #fee2e2;
             color: #ef4444;
-            border-radius: 20px;
-            padding: 5px 15px;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
-        /* --- STICKY FOOTER STYLE --- */
+        .btn-action-delete:hover {
+            background: #fef2f2;
+            border-color: #ef4444;
+        }
+
+        /* --- STICKY FOOTER DARK (Senada Landing) --- */
         footer {
-            flex-shrink: 0; /* Mencegah footer menyusut */
-            background: rgba(4, 13, 26, 0.95);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
+            background-color: #0b1724;
             color: #94a3b8;
-            padding: 15px 0;
+            padding: 24px 0;
             width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .footer-logo-container {
@@ -190,14 +224,11 @@
         .footer-logo-container img {
             height: 100%;
             width: auto;
-            filter: brightness(0) invert(1);
         }
 
-        /* Single-line override: pastikan teks tabel tetap putih dan tidak pudar/hilang.
-           Ditempatkan di akhir style agar menimpa aturan lain yang mungkin menurunkan warna/opacity/mix-blend-mode. */
-        .table.table-hover, .table.table-hover *, .table-responsive-wrapper .table, .table-responsive-wrapper .table * { color: #ffffff !important; opacity: 1 !important; -webkit-text-fill-color: #ffffff !important; mix-blend-mode: normal !important; filter: none !important; text-shadow: none !important; visibility: visible !important; }
-        .table.table-hover a, .table-responsive-wrapper .table a, .table.table-hover a:hover { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; text-decoration: none !important; }
-        .table.table-hover tbody tr:hover, .table.table-hover tbody tr:hover td, .table.table-hover tbody tr:hover td * { color: #ffffff !important; opacity: 1 !important; -webkit-text-fill-color: #ffffff !important; mix-blend-mode: normal !important; filter: none !important; visibility: visible !important; }
+        /* Override global rules agar teks tabel dinamis menyesuaikan tema terang */
+        .table.table-hover, .table-responsive-wrapper .table { color: #334155 !important; }
+        .table.table-hover tbody tr:hover { background-color: #f8fafc !important; }
     </style>
 </head>
 
@@ -205,67 +236,52 @@
 
     <div class="content-grow">
         
-<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
-    <div class="container">
-        <!-- LEFT: logo + brand -->
-        <a class="navbar-brand d-flex align-items-center gap-3" href="/">
-            <div class="logo-wrapper">
-                <img src="{{ asset('images/ITB-SS.jpg') }}" alt="Logo ITBSS">
-            </div>
-            <span class="brand-text">Institut Teknologi & Bisnis Sabda Setia</span>
-        </a>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                    <div class="logo-wrapper">
+                        <img src="{{ asset('images/LOGO-ITBSS.png') }}" alt="Logo ITBSS">
+                    </div>
+                    <span class="brand-text ml-1 hidden md:inline">Institut Teknologi & Bisnis Sabda Setia</span>
+                </a>
 
-        <!-- MOBILE TOGGLER -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
-          aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                  aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
 
-        <!-- CENTER + RIGHT -->
-        <div class="collapse navbar-collapse" id="mainNavbar">
-          <!-- CENTER: Home only -->
-          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-          </ul>
+                  <div class="d-flex align-items-center gap-3">
+                    <form class="d-flex" role="search" action="#" method="get">
+                      <input class="form-control search-control" name="q" type="search" placeholder="Cari nama/NIM..." aria-label="Search">
+                      <button class="btn btn-search ms-2" type="submit">Search</button>
+                    </form>
 
-          <!-- RIGHT: search + divider + menu siakad -->
-          <div class="d-flex align-items-center gap-3">
-            <form class="d-flex" role="search" action="#" method="get">
-              <input class="form-control search-control" name="q" type="search" placeholder="Cari nama/NIM..." aria-label="Search">
-              <button class="btn btn-search ms-2" type="submit">Search</button>
-            </form>
+                    <div style="width: 1px; height: 20px; background: #e2e8f0;"></div>
 
-            <!-- DIVIDER -->
-            <div style="width: 1px; height: 25px; background: rgba(255,255,255,0.2);"></div>
-
-            <!-- MENU SIAKAD -->
-            <div class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="siakadMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Menu SIAKAD
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="siakadMenu">
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Dosen</a></li>
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Jurusan</a></li>
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">Mata Kuliah</a></li>
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">Kelas</a></li>
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KRSController::class, 'index']) }}">KRS</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-    </div>
-</nav>
+                    <div class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle font-semibold" href="#" id="siakadMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Menu SIAKAD
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end animate fade-In" aria-labelledby="siakadMenu">
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Dosen</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Jurusan</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">Mata Kuliah</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">Kelas</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KRSController::class, 'index']) }}">KRS</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+        </nav>
 
         <div class="container my-5">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                 <div>
                     <h1 class="main-title mb-1">Daftar Mahasiswa</h1>
-                    <p class="text-white-50 mb-0">Kelola dan lihat seluruh data mahasiswa aktif</p>
+                    <p class="text-muted mb-0">Kelola dan lihat seluruh data mahasiswa aktif</p>
                 </div>
                 <div>
-                    <a href="{{ action([App\Http\Controllers\MahasiswaController::class, 'create']) }}" class="btn btn-create btn-lg">
+                    <a href="{{ action([App\Http\Controllers\MahasiswaController::class, 'create']) }}" class="btn btn-create shadow-sm">
                         + Tambah Mahasiswa
                     </a>
                 </div>
@@ -290,12 +306,12 @@
                             @foreach ($mahasiswa as $m)
                             <tr>
                                 <td>{{ $m->id }}</td>
-                                <td class="fw-semibold text-white">{{ $m->Fullname }}</td>
-                                <td><span class="badge bg-secondary text-white px-2 py-1">{{ $m->NIM }}</span></td>
+                                <td class="fw-semibold text-dark">{{ $m->Fullname }}</td>
+                                <td><span class="badge bg-light text-dark border px-2 py-1">{{ $m->NIM }}</span></td>
                                 <td>{{ $m->NISN ?? '-' }}</td>
                                 <td>{{ $m->Tempat_Lahir }}, {{ $m->Tanggal_Lahir }}</td>
                                 <td>{{ $m->Alamat }}</td>
-                                <td>{{ $m->created_at }}</td>
+                                <td class="text-muted small">{{ $m->created_at }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-2">
                                         <a href="{{ action([App\Http\Controllers\MahasiswaController::class, 'edit'], [$m->id]) }}" class="btn btn-action-edit">Edit</a>
@@ -319,15 +335,15 @@
     <footer>
         <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center">
             <div class="footer-logo-container mb-2 mb-sm-0">
-                <img src="{{ asset('images/Logo-WHhite.png') }}" alt="Logo ITBSS Footer">
+                <img src="{{ asset('images/Logo-White.png') }}" alt="Logo ITBSS Footer">
             </div>
             <p class="mb-0 small text-white-50">
-                Copyright © 2026 Institut Teknologi & Bisnis Sabda Setia. All rights reserved - Aprianto.
+                Copyright © 2026 Institut Teknologi & Bisnis Sabda Setia - Yvanna Sudarmo
             </p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
