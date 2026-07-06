@@ -171,7 +171,7 @@
   <section class="my-12">
     <h2 class="text-3xl font-extrabold text-dark mb-6">{{ $tr['registration'] }}</h2>
     <div class="relative rounded-xl overflow-hidden bg-white shadow-sm">
-      <img class="w-full h-auto object-cover rounded-xl" src="{{ asset('images/Website-PMB-26-27.jpg') }}" alt="Pendaftaran" loading="lazy" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
+      <img class="w-full h-auto object-cover rounded-xl" src="{{ asset('images/regis.jpg') }}" alt="Pendaftaran" loading="lazy" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
     </div>
   </section>
 
