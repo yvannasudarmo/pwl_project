@@ -20,6 +20,8 @@
     }
   </script>
 
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
   <style>
     body {
       background-color: #f5f7fb;
@@ -83,7 +85,7 @@
       <a class="rounded-full px-2.5 py-1.5 border border-[rgba(11,35,64,0.06)] bg-transparent font-semibold text-sm hover:bg-gray-100" href="{{ $urlId }}" aria-label="ID">ID</a>
       <a class="rounded-full px-2.5 py-1.5 border border-[rgba(11,35,64,0.06)] bg-transparent font-semibold text-sm hover:bg-gray-100" href="{{ $urlEn }}" aria-label="EN">EN</a>
 
-      {{-- User Dropdown --}}
+      {{-- User Dropdown (Menggunakan Vanilla JS di bawah) --}}
       @auth
         <div class="relative inline-block text-left dropdown-container">
           <button class="dropdown-toggle px-3 py-1.5 rounded-full border border-brand-blue text-brand-blue font-medium hover:bg-blue-50 transition text-sm flex items-center gap-1">
@@ -92,8 +94,7 @@
           <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50">
             <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ route('landing') }}">Dashboard</a>
             <hr class="my-1 border-gray-200">
-            <form action="{{ route('logout')
-            }}" method="POST" class="m-0">
+            <form action="{{ route('logout') }}" method="POST" class="m-0">
               @csrf
               <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
             </form>
@@ -103,40 +104,40 @@
         <a class="px-4 py-1.5 rounded-full border border-brand-blue text-brand-blue font-medium hover:bg-blue-50 transition text-sm" href="{{ route('login') }}">Login</a>
       @endauth
 
-      {{-- Menu SIAKAD --}}
+      {{-- Menu SIAKAD (Menggunakan Alpine.js) --}}
       <div class="relative inline-block text-left dropdown-container ml-1" x-data="{ open: false }">
-  
-  <button @click="open = !open" class="dropdown-toggle px-3.5 py-1.5 rounded-full border border-[rgba(11,35,64,0.06)] bg-transparent font-semibold text-sm hover:bg-gray-100 transition flex items-center gap-1">
-    Menu SIAKAD
-  </button>
-  
-  <div x-show="open" @click.outside="open = false" class="dropdown-menu absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50" style="display: none;">
-    @php
-      $menus = [
-        ['label' => 'Mahasiswa', 'ctrl' => App\Http\Controllers\MahasiswaController::class],
-        ['label' => 'Dosen', 'ctrl' => App\Http\Controllers\DosenController::class],
-        ['label' => 'Jurusan', 'ctrl' => App\Http\Controllers\JurusanController::class],
-        ['label' => 'Mata Kuliah', 'ctrl' => App\Http\Controllers\MatakuliahController::class],
-        ['label' => 'Kelas', 'ctrl' => App\Http\Controllers\KelasController::class],
-        ['label' => 'KRS', 'ctrl' => App\Http\Controllers\KRSController::class],
-      ];
-    @endphp
-    @foreach($menus as $menu)
-      @auth
-        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ action([$menu['ctrl'],'index']) }}">{{ $menu['label'] }}</a>
-      @else
-        <a class="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100" href="{{ route('login', ['redirect'=>url()->current()]) }}">{{ $menu['label'] }} (Login untuk akses)</a>
-      @endauth
-    @endforeach
-  </div>
-</div>
+        <button @click="open = !open" class="px-3.5 py-1.5 rounded-full border border-[rgba(11,35,64,0.06)] bg-transparent font-semibold text-sm hover:bg-gray-100 transition flex items-center gap-1">
+          Menu SIAKAD
+        </button>
+        
+        <div x-show="open" @click.outside="open = false" class="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50" style="display: none;">
+          @php
+            // Tips: Pastikan Route atau URL ini sesuai dengan routing web.php Anda
+            $menus = [
+              ['label' => 'Mahasiswa', 'url' => '/mahasiswa'],
+              ['label' => 'Dosen', 'url' => '/dosen'],
+              ['label' => 'Jurusan', 'url' => '/jurusan'],
+              ['label' => 'Mata Kuliah', 'url' => '/matakuliah'],
+              ['label' => 'Kelas', 'url' => '/kelas'],
+              ['label' => 'KRS', 'url' => '/krs'],
+            ];
+          @endphp
+          @foreach($menus as $menu)
+            @auth
+              <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ $menu['url'] }}">{{ $menu['label'] }}</a>
+            @else
+              <a class="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100" href="{{ route('login', ['redirect'=>url()->current()]) }}">{{ $menu['label'] }} <span class="text-xs block text-gray-400">(Login untuk akses)</span></a>
+            @endauth
+          @endforeach
+        </div>
+      </div>
 
     </div>
   </div>
 </nav>
 
 <header class="relative w-full min-h-[640px] lg:h-screen overflow-hidden flex items-center bg-[#071024] py-12 lg:py-0" role="banner" aria-label="Penerimaan">
-  <img class="absolute inset-0 w-full height-full object-cover object-center z-10 opacity-60" src="{{ asset('images/Gedung-ITBSS.jpg') }}" alt="Hero" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
+  <img class="absolute inset-0 w-full h-full object-cover object-center z-10 opacity-60" src="{{ asset('images/Gedung-ITBSS.jpg') }}" alt="Hero" onerror="this.onerror=null;this.src='{{ $svgPlaceholder }}'">
   <div class="absolute inset-0 z-20 bg-gradient-to-r from-[#030a19]/90 via-[#030a19]/60 to-[#030a19]/20" aria-hidden="true"></div>
 
   <div class="relative z-30 max-w-[1180px] mx-auto w-full px-6 grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-center">
@@ -161,6 +162,7 @@
       <div class="rounded-xl bg-white shadow-[0_14px_40px_rgba(3,10,25,0.16)] overflow-hidden">
         <div class="p-6 text-dark">
           <h5 class="text-lg font-bold mb-4">📅 {{ $tr['agenda'] }}</h5>
+        </div>
       </div>
     </div>
   </div>
@@ -207,8 +209,7 @@
         <p class="text-sm text-gray-500">Pendampingan & inkubasi usaha.</p>
       </div>
     </div>
-
-  <section class="my-12">
+  </section> <section class="my-12">
     <h2 class="text-3xl font-extrabold text-dark mb-6">{{ $tr['why'] }}</h2>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -230,7 +231,7 @@
   <section class="my-12">
     <div class="bg-white rounded-xl shadow-sm p-6 border-t-4 border-brand-blue">
       <h4 class="text-lg font-bold text-dark mb-2">Lokasi Kampus</h4>
-      <p><a class="text-brand-blue hover:underline text-sm sm:text-base" href="https://www.google.com/maps/place/Institut+Teknologi+%26+Bisnis+Sabda+Setia/" target="_blank" rel="noopener">Jl. Purnama II, Pontianak Selatan, Kota Pontianak, Kalimantan Barat</a></p>
+      <p><a class="text-brand-blue hover:underline text-sm sm:text-base" href="https://maps.google.com" target="_blank" rel="noopener">Jl. Purnama II, Pontianak Selatan, Kota Pontianak, Kalimantan Barat</a></p>
     </div>
   </section>
 </main>
@@ -243,5 +244,21 @@
 </footer>
 
 <script>
-  // --- DROPPDOWN CONTROLLER ---
-  document.querySelectorAll('.dropdown-toggle').
+  // --- USER DROPDOWN CONTROLLER (Vanilla JS) ---
+  const dropdownToggle = document.querySelector('.dropdown-container .dropdown-toggle');
+  const dropdownMenu = document.querySelector('.dropdown-container .dropdown-menu');
+
+  if (dropdownToggle && dropdownMenu) {
+    dropdownToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dropdownMenu.classList.toggle('hidden');
+    });
+
+    // Tutup dropdown jika klik di luar area menu
+    document.addEventListener('click', function() {
+      dropdownMenu.classList.add('hidden');
+    });
+  }
+</script>
+</body>
+</html>
