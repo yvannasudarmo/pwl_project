@@ -31,6 +31,21 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             
+            <div class="md:col-span-2">
+                <label class="block text-sm font-semibold text-dark mb-1">Nama Mata Kuliah</label>
+                <input type="text" name="Nama_MK" value="{{ old('Nama_MK') }}" placeholder="Masukkan nama mata kuliah lengkap" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-dark mb-1">Kode Mata Kuliah</label>
+                <input type="text" name="Kode_MK" value="{{ old('Kode_MK') }}" placeholder="Contoh: MK021" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-dark mb-1">SKS</label>
+                <input type="number" name="SKS" value="{{ old('SKS') }}" min="1" max="6" placeholder="Contoh: 3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
+            </div>
+
             <div>
                 <label class="block text-sm font-semibold text-dark mb-1">Jurusan ID</label>
                 <input type="text" name="Jurusan_Id" value="{{ old('Jurusan_Id') }}" placeholder="Contoh: JR001" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
@@ -41,21 +56,6 @@
                 <input type="text" name="Dosen_Id" value="{{ old('Dosen_Id') }}" placeholder="Contoh: DSN002" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
             </div>
 
-            <div class="md:col-span-2">
-                <label class="block text-sm font-semibold text-dark mb-1">Kode Mata Kuliah</label>
-                <input type="text" name="Kode_MK" value="{{ old('Kode_MK') }}" placeholder="Contoh: MK021" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
-            </div>
-
-            <div class="md:col-span-2">
-                <label class="block text-sm font-semibold text-dark mb-1">Nama Mata Kuliah</label>
-                <input type="text" name="Nama_MK" value="{{ old('Nama_MK') }}" placeholder="Masukkan nama mata kuliah lengkap" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
-            </div>
-
-            <div class="md:col-span-2">
-                <label class="block text-sm font-semibold text-dark mb-1">SKS</label>
-                <input type="number" name="SKS" value="{{ old('SKS') }}" min="1" max="6" placeholder="Contoh: 3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue text-sm transition" required>
-            </div>
-
         </div>
 
         <!-- Action Buttons -->
@@ -64,7 +64,7 @@
                 Batal
             </a>
             <button type="submit" class="px-6 py-2 bg-brand-blue text-white font-medium rounded-md hover:bg-blue-700 transition text-sm shadow-sm shadow-brand-blue/20">
-                Add
+                Simpan
             </button>
         </div>
 
