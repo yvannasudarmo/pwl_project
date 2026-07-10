@@ -239,7 +239,7 @@
         <!-- Navbar Utama -->
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('dashboard') }}">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('landing') }}">
                     <div class="logo-wrapper">
                         <!-- Menggunakan file image logo lokal yang konsisten -->
                         <img src="{{ asset('images/LOGO-ITBSS.png') }}" alt="Logo ITBSS" onerror="this.src='https://112005.sgp1.vultrobjects.com/sikad/gambar/Logo.gA1qr7iMLX.png'">
