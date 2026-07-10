@@ -21,7 +21,8 @@ class Kelas extends Model
         'semester'
     ];
 
-    public function ListHari(){
+    // Ditambahkan kata kunci 'static'
+    public static function ListHari(){
         return [
             'senin',
             'selasa',
@@ -31,7 +32,8 @@ class Kelas extends Model
         ];
     }
 
-    public function ListJam(){
+    // Ditambahkan kata kunci 'static'
+    public static function ListJam(){
         return [
             '08:00 - 09:40',
             '09:50 - 11:30',
