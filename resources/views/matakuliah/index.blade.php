@@ -288,7 +288,7 @@
                 </div>
                 <div>
                     <!-- Diperbaiki mengarah ke create action -->
-                    <a href="{{ action([App\Http\Controllers\MataKuliahController::class, 'create']) }}" class="btn btn-create shadow-sm">
+                    <a href="{{ action([App\Http\Controllers\MatakuliahController::class, 'create']) }}" class="btn btn-create shadow-sm">
                         + Tambah Mata Kuliah
                     </a>
                 </div>
