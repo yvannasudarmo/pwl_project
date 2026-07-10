@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ request('lang', app()->getLocale() ?? 'id') }}">
 
 <head>
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* Struktur Flexbox Sticky Footer agar senada dengan Landing */
+        /* Struktur Flexbox Sticky Footer agar senada dengan modul SIAKAD lainnya */
         html, body {
             height: 100%;
             margin: 0;
@@ -28,7 +28,7 @@
             flex: 1 0 auto;
         }
 
-        /* --- STYLING NAVBAR CLEAN LIGHT (Senada Landing) --- */
+        /* --- STYLING NAVBAR CLEAN LIGHT --- */
         .navbar {
             background-color: #ffffff !important;
             box-shadow: 0 2px 8px rgba(9, 30, 63, 0.06) !important;
@@ -80,9 +80,9 @@
             font-size: 0.9rem;
         }
 
-        .dropdown-item:hover {
+        .dropdown-item:hover, .dropdown-item.active {
             background-color: #f1f5f9;
-            color: #0d6efd;
+            color: #0d6efd !important;
         }
 
         /* Search Bar Light Theme */
@@ -124,6 +124,7 @@
             padding: 8px 20px;
             font-size: 0.9rem;
             transition: all 0.2s ease;
+            text-decoration: none;
         }
         .btn-create:hover { 
             background: #0b5ed7;
@@ -181,6 +182,7 @@
             font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.2s;
+            text-decoration: none;
         }
 
         .btn-action-edit:hover {
@@ -205,7 +207,7 @@
             border-color: #ef4444;
         }
 
-        /* --- STICKY FOOTER DARK (Senada Landing) --- */
+        /* --- STICKY FOOTER DARK --- */
         footer {
             flex-shrink: 0;
             background-color: #0b1724;
@@ -226,8 +228,6 @@
             width: auto;
         }
 
-        /* Override global rules agar teks tabel dinamis menyesuaikan tema terang */
-        .table.table-hover, .table-responsive-wrapper .table { color: #334155 !important; }
         .table.table-hover tbody tr:hover { background-color: #f8fafc !important; }
     </style>
 </head>
@@ -236,13 +236,14 @@
 
     <div class="content-grow">
         
+        <!-- Navbar Utama -->
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('dashboard') }}">
                     <div class="logo-wrapper">
-                        <img src="{{ asset('images/LOGO-ITBSS.png') }}" alt="Logo ITBSS">
+                        <img src="{{ asset('images/LOGO-ITBSS.png') }}" alt="Logo ITBSS" onerror="this.src='https://112005.sgp1.vultrobjects.com/sikad/gambar/Logo.gA1qr7iMLX.png'">
                     </div>
-                    <span class="brand-text ml-1 hidden md:inline">Institut Teknologi & Bisnis Sabda Setia</span>
+                    <span class="brand-text ms-1 d-none d-md-inline">Institut Teknologi & Bisnis Sabda Setia</span>
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
@@ -250,22 +251,25 @@
                   <span class="navbar-toggler-icon"></span>
                 </button>
 
-                  <div class="d-flex align-items-center gap-3">
+                <!-- Struktur Grid Navbar di bawah ini diperbaiki agar rapi saat dibuka di perangkat mobile -->
+                <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+                  <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-3 mt-3 mt-lg-0">
                     <form class="d-flex" role="search" action="#" method="get">
                       <input class="form-control search-control" name="q" type="search" placeholder="Cari nama/NIM..." aria-label="Search">
                       <button class="btn btn-search ms-2" type="submit">Search</button>
                     </form>
 
-                    <div style="width: 1px; height: 20px; background: #e2e8f0;"></div>
+                    <div class="d-none d-lg-block" style="width: 1px; height: 20px; background: #e2e8f0;"></div>
 
                     <div class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle font-semibold" href="#" id="siakadMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a class="nav-link dropdown-toggle fw-semibold active" href="#" id="siakadMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Menu SIAKAD
                       </a>
-                      <ul class="dropdown-menu dropdown-menu-end animate fade-In" aria-labelledby="siakadMenu">
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="siakadMenu">
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Dosen</a></li>
-                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Jurusan</a></li>
+                        <li><a class="dropdown-item active" href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">Mahasiswa</a></li>
                         <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Jurusan</a></li>
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">Mata Kuliah</a></li>
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">Kelas</a></li>
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KRSController::class, 'index']) }}">KRS</a></li>
@@ -273,13 +277,15 @@
                     </div>
                   </div>
                 </div>
+            </div>
         </nav>
 
+        <!-- Konten Utama Halaman -->
         <div class="container my-5">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                 <div>
                     <h1 class="main-title mb-1">Daftar Mahasiswa</h1>
-                    <p class="text-muted mb-0">Kelola dan lihat seluruh data mahasiswa aktif</p>
+                    <p class="text-muted mb-0">Kelola dan lihat seluruh data mahasiswa aktif aktif ITBSS</p>
                 </div>
                 <div>
                     <a href="{{ action([App\Http\Controllers\MahasiswaController::class, 'create']) }}" class="btn btn-create shadow-sm">
@@ -293,7 +299,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th width="5%">No</th>
+                                <th width="5%" class="text-center">No</th>
                                 <th>Nama Lengkap</th>
                                 <th>NIM</th>
                                 <th>NISN</th>
@@ -304,27 +310,45 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($mahasiswa as $m)
+                            @forelse ($mahasiswa as $m)
                             <tr>
-                                <td>{{ $m->id }}</td>
+                                <td class="text-center text-muted">{{ $loop->iteration }}</td>
                                 <td class="fw-semibold text-dark">{{ $m->Fullname }}</td>
-                                <td><span class="badge bg-light text-dark border px-2 py-1">{{ $m->NIM }}</span></td>
-                                <td>{{ $m->NISN ?? '-' }}</td>
-                                <td>{{ $m->Tempat_Lahir }}, {{ $m->Tanggal_Lahir }}</td>
-                                <td>{{ $m->Alamat }}</td>
-                                <td class="text-muted small">{{ $m->created_at }}</td>
+                                <td><span class="badge bg-light text-dark border font-monospace">{{ $m->NIM }}</span></td>
+                                <td class="text-secondary small">{{ $m->NISN ?? '-' }}</td>
+                                <td>
+                                    {{ $m->Tempat_Lahir }}, 
+                                    <span class="text-muted small">
+                                        {{ $m->Tanggal_Lahir ? \Carbon\Carbon::parse($m->Tanggal_Lahir)->format('d M Y') : '-' }}
+                                    </span>
+                                </td>
+                                <td class="text-wrap small text-secondary" style="max-width: 200px;">{{ $m->Alamat }}</td>
+                                <td class="text-muted small">
+                                    {{ $m->created_at ? $m->created_at->format('d M Y') : '-' }}
+                                </td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-2">
                                         <a href="{{ action([App\Http\Controllers\MahasiswaController::class, 'edit'], [$m->id]) }}" class="btn btn-action-edit">Edit</a>
-                                        <form action="{{ action([App\Http\Controllers\MahasiswaController::class, 'destroy'], [$m->id]) }}" method="post" class="m-0">
+                                        
+                                        <!-- Form Delete dengan Konfirmasi Pengaman Tambahan -->
+                                        <form action="{{ action([App\Http\Controllers\MahasiswaController::class, 'destroy'], [$m->id]) }}" 
+                                              method="post" 
+                                              class="m-0"
+                                              onsubmit="return confirm('Apakah Anda yakin ingin menghapus data mahasiswa ini?')">
                                             @csrf
-                                            <input type="hidden" name="_method" value="DELETE">
+                                            @method('DELETE')
                                             <button type="submit" class="btn btn-action-delete">Delete</button>
                                         </form>
                                     </div>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="8" class="text-center text-muted italic py-4">
+                                    Belum ada data mahasiswa yang tersimpan.
+                                </td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -333,10 +357,11 @@
 
     </div>
 
+    <!-- Footer Sistem Terintegrasi -->
     <footer>
         <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center">
             <div class="footer-logo-container mb-2 mb-sm-0">
-                <img src="{{ asset('images/Logo-White.png') }}" alt="Logo ITBSS Footer">
+                <span class="text-white fw-bold small tracking-wide">SIAKAD ITBSS</span>
             </div>
             <p class="mb-0 small text-white-50">
                 Copyright © 2026 Institut Teknologi & Bisnis Sabda Setia - Yvanna Sudarmo
