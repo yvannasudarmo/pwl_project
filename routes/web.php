@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/jurusan', JurusanController::class);
 
-    Route::resource('/mata_kuliah', MatakuliahController::class);
+    Route::resource('/matakuliah', MatakuliahController::class);
 
     Route::resource('/kelas', KelasController::class)
         ->except(['show', 'edit', 'update']);
