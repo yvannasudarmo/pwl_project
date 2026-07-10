@@ -24,11 +24,11 @@ class Kelas extends Model
     // Ditambahkan kata kunci 'static'
     public static function ListHari(){
         return [
-            'senin',
-            'selasa',
-            'rabu',
-            'kamis',
-            'jumat'
+            'Senin',
+            'Selasa',
+            'Rabu',
+            'Kamis',
+            'Jumat'
         ];
     }
 
