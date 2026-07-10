@@ -1,4 +1,4 @@
-<form action="{{route('matakuliah.save')}}"  method="post">
+<form action="{{route('matakuliah.index')}}"  method="post">
     @csrf
     <table>
         <tr>
