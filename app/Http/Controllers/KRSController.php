@@ -36,13 +36,21 @@ class KRSController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
-    {
-        return view('krs.show', [
-            'krs' => KRS::where('id', '=', $id)->with(['detail', 'mahasiswa',
-                'detail.kelas', 'detail.kelas.dosen', 'detail.kelas.matakuliah'])->first()
-        ]);
-    }
+public function show($id)
+{
+    // Eager loading diletakkan di depan, diakhiri dengan findOrFail untuk keamanan data null
+    $kRS = KRS::with([
+        'detail', 
+        'mahasiswa',
+        'detail.kelas', 
+        'detail.kelas.dosen', 
+        'detail.kelas.matakuliah'
+    ])->findOrFail($id);
+
+    return view('krs.show', [
+        'krs' => $kRS
+    ]);
+}
 
     /**
      * Show the form for editing the specified resource.
