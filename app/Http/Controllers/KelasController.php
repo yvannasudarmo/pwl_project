@@ -54,6 +54,35 @@ class KelasController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        // Mengambil data kelas spesifik yang akan diedit beserta data pendukungnya
+        return view('kelas.edit', [
+            'kelas' => Kelas::findOrFail($id),
+            'dosen' => Dosen::get(),
+            'mataKuliah' => MataKuliah::get(),
+            'hari' => Kelas::ListHari(),
+            'jam' => Kelas::ListJam(),
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        // Mengabaikan token CSRF dan spoofing method (_method) dari request form
+        $data = $request->except(['_token', '_method']);
+
+        // Cari data berdasarkan ID, lalu perbarui datanya
+        Kelas::findOrFail($id)->update($data);
+
+        return redirect()->action([KelasController::class, 'index']);
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
