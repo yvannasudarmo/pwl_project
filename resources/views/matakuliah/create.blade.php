@@ -13,8 +13,8 @@
         </div>
     </div>
 
-    <!-- Form Body -->
-    <form action="{{ route('matakuliah.store') }}" method="POST" class="p-6 space-y-5">
+    <!-- Form Body (Perbaikan: Route diarahkan menggunakan Action Controller) -->
+    <form action="{{ action([App\Http\Controllers\MatakuliahController::class, 'store']) }}" method="POST" class="p-6 space-y-5">
         @csrf
 
         <!-- Error Alert -->
@@ -58,9 +58,9 @@
 
         </div>
 
-        <!-- Action Buttons -->
+        <!-- Action Buttons (Perbaikan: Link Batal diarahkan menggunakan Action Controller) -->
         <div class="flex justify-end gap-3 pt-3 border-t border-gray-100">
-            <a href="{{ route('matakuliah.index') }}" class="px-5 py-2 bg-gray-100 text-gray-700 font-medium rounded-md hover:bg-gray-200 transition text-sm flex items-center justify-center">
+            <a href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}" class="px-5 py-2 bg-gray-100 text-gray-700 font-medium rounded-md hover:bg-gray-200 transition text-sm flex items-center justify-center">
                 Batal
             </a>
             <button type="submit" class="px-6 py-2 bg-brand-blue text-white font-medium rounded-md hover:bg-blue-700 transition text-sm shadow-sm shadow-brand-blue/20">
