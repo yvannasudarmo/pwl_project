@@ -1,85 +1,153 @@
 <!doctype html>
-<html lang="en">
-  <head>
+<html lang="id">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Show KRS</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <img src="https://112005.sgp1.vultrobjects.com/sikad/gambar/Logo.gA1qr7iMLX.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YGIP9T9E1N7J9K1U7NIC%2F20260514%2Fsgp1%2Fs3%2Faws4_request&X-Amz-Date=20260514T203745Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&x-id=GetObject&X-Amz-Signature=97c43795bdcaa209764f375d74ba8e93da28661f2c79cdeba4bb0f4b9ea321f6" style="width:40px; height:40px;">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{{route('dashboard')}}">Home</a>
-            </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li> -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Menu
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item active" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Dosen</a></li>
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">Mahasiswa</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Jurusan</a></li>
-                <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MataKuliahController::class, 'index']) }}">Mata Kuliah</a></li>
-              </ul>
-            </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li> -->
-          </ul>
-          <!-- <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form> -->
+    <title>SIAKAD - Kartu Rencana Studi</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body { 
+            background-color: #f8fafc; 
+            color: #1e293b; 
+            font-family: system-ui, -apple-system, sans-serif; 
+        }
+        .navbar {
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+        }
+        .info-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .table th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+        }
+        .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar SIAKAD -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light border-bottom sticky-top py-2">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-primary" href="{{ route('dashboard') }}">
+                <img src="https://112005.sgp1.vultrobjects.com/sikad/gambar/Logo.gA1qr7iMLX.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YGIP9T9E1N7J9K1U7NIC%2F20260514%2Fsgp1%2Fs3%2Faws4_request&X-Amz-Date=20260514T203745Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&x-id=GetObject&X-Amz-Signature=97c43795bdcaa209764f375d74ba8e93da28661f2c79cdeba4bb0f4b9ea321f6" alt="Logo" style="width:36px; height:36px;">
+                <span>SIAKAD</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard') }}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            Menu Akademik
+                        </a>
+                        <ul class="dropdown-menu shadow-sm border-0 mt-2">
+                            <li><a class="dropdown-item" href="{{ route('dosen.index') }}">Data Dosen</a></li>
+                            <li><a class="dropdown-item" href="{{ route('mahasiswa.index') }}">Data Mahasiswa</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ route('jurusan.index') }}">Data Jurusan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('matakuliah.index') }}">Mata Kuliah</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
     </nav>
-    <div class="container">
-      <div class="row align-items-start">
-        <div class="col left">
-          <b>{{ $krs->mahasiswa->Fullname }}</b><br/>
-          {{ $krs->mahasiswa->NIM }}<br/>
-          {{ $krs->mahasiswa->NIDN }}<br/>
+
+    <div class="container my-5">
+        <!-- Ringkasan Profil Mahasiswa -->
+        <div class="info-card mb-4">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 border-end-md">
+                    <small class="text-muted d-block text-uppercase fw-semibold tracking-wider mb-1" style="font-size: 0.75rem;">Identitas Mahasiswa</small>
+                    <h5 class="fw-bold text-dark m-0 mb-1">{{ $krs->mahasiswa->Fullname }}</h5>
+                    <div class="text-secondary small">
+                        <span class="me-3"><strong>NIM:</strong> {{ $krs->mahasiswa->NIM }}</span>
+                        @if($krs->mahasiswa->NIDN) 
+                            <span><strong>NIDN Wali:</strong> {{ $krs->mahasiswa->NIDN }}</span> 
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-6 ps-md-4">
+                    <small class="text-muted d-block text-uppercase fw-semibold tracking-wider mb-1" style="font-size: 0.75rem;">Periode Rencana Studi</small>
+                    <div class="row g-2 text-secondary small">
+                        <div class="col-6"><strong>Tahun Ajaran:</strong> {{ $krs->tahun_ajaran }}</div>
+                        <div class="col-6"><strong>Semester:</strong> <span class="text-capitalize">{{ $krs->semester }}</span></div>
+                        <div class="col-12 mt-2">
+                            <strong>Total Beban:</strong> 
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 ms-1">
+                                {{ $krs->total_sks }} SKS
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col">
-          Tahun Ajaran {{ $krs->tahun_ajaran }}<br/>
-          Semester {{ $krs->semester }}<br/>
-          Total SKS {{ $krs->total_sks }}<br/>
+
+        <!-- Tabel Lembar KRS Mata Kuliah -->
+        <div class="bg-white border rounded-3 overflow-hidden shadow-sm">
+            <div class="p-3 bg-light border-bottom">
+                <h6 class="fw-bold text-secondary m-0">Daftar Mata Kuliah yang Diambil</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 60px;">No</th>
+                            <th style="width: 150px;">Kode MK</th>
+                            <th>Nama Mata Kuliah</th>
+                            <th>Dosen Pengajar</th>
+                            <th class="text-center" style="width: 180px;">Jadwal</th>
+                            <th class="text-center" style="width: 120px;">Ruangan</th>
+                            <th class="text-center" style="width: 140px;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($krs->detail as $k)
+                        <tr>
+                            <!-- Menggunakan loop->iteration untuk nomor urut dinamis -->
+                            <td class="text-center text-muted small">{{ $loop->iteration }}</td>
+                            <td class="fw-bold text-secondary">{{ $k->kelas->matakuliah->Kode_Mata_Kuliah }}</td>
+                            <td>
+                                <span class="fw-semibold text-dark">{{ $k->kelas->matakuliah->Nama_Mata_Kuliah }}</span>
+                            </td>
+                            <td>{{ $k->kelas->dosen->Fullname }}</td>
+                            <td class="text-center">
+                                <span class="badge bg-light text-dark border">{{ $k->kelas->hari }}</span>
+                                <small class="d-block text-muted mt-1">{{ $k->kelas->jam }}</small>
+                            </td>
+                            <td class="text-center"><span class="text-muted">{{ $k->kelas->ruang_kelas }}</span></td>
+                            <td class="text-center">
+                                <!-- Pewarnaan dinamis berdasarkan status KRS -->
+                                @if(strtolower($k->status) == 'approved' || strtolower($k->status) == 'disetujui')
+                                    <span class="badge bg-success-subtle text-success px-3 py-1.5 w-100">Disetujui</span>
+                                @elseif(strtolower($k->status) == 'pending')
+                                    <span class="badge bg-warning-subtle text-warning-emphasis px-3 py-1.5 w-100">Pending</span>
+                                @else
+                                    <span class="badge bg-danger-subtle text-danger px-3 py-1.5 w-100">{{ $k->status }}</span>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <th>No</th>
-            <th>Kode Mata Kuliah</th>
-            <th>Nama Mata Kuliah</th>
-            <th>Nama Dosen</th>
-            <th>Jadwal</th>
-            <th>Ruangan</th>
-            <th>Status</th>
-        </thead>
-        @foreach ($krs->detail as $k)
-        <tr>
-            <td>{{$k->id}}</td>
-            <td>{{$k->kelas->matakuliah->Kode_Mata_Kuliah}}</td>
-            <td>{{$k->kelas->matakuliah->Nama_Mata_Kuliah}}</td>
-            <td>{{$k->kelas->dosen->Fullname}}</td>
-            <td>{{$k->kelas->hari}}, {{ $k->kelas->jam }}</td>
-            <td>{{$k->kelas->ruang_kelas}}</td>
-            <td>{{$k->status}}</td>
-        </tr>
-        @endforeach
-    </table>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-  </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
