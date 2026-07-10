@@ -262,11 +262,12 @@
                     <div class="d-none d-lg-block" style="width: 1px; height: 20px; background: #e2e8f0;"></div>
 
                     <div class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle fw-semibold" href="#" id="siakadMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a class="nav-link dropdown-toggle fw-semibold active" href="#" id="siakadMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Menu SIAKAD
                       </a>
                       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="siakadMenu">
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Dosen</a></li>
+                        <li><a class="dropdown-item active" href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">Mahasiswa</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Jurusan</a></li>
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">Mata Kuliah</a></li>
