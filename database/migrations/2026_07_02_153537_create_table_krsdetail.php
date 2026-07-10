@@ -11,8 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_krsdetail', function (Blueprint $table) {
+        Schema::create('krs_detail', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('kode_krs');
+            $table->foreign('kode_krs')->references('id')->on('krs')->onDelete('cascade');
+
+            $table->unsignedBigInteger('kode_kelas');
+            $table->foreign('kode_kelas')->references('id')->on('kelas')->onDelete('cascade');
+
+            $table->enum('status', ['pending', 'approved', 'declined']);
             $table->timestamps();
         });
     }
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_krsdetail');
+        Schema::dropIfExists('krsdetails');
     }
 };
