@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KRS;
+use App\Models\krs;
 use Illuminate\Http\Request;
 
 class KRSController extends Controller
@@ -13,7 +13,7 @@ class KRSController extends Controller
     public function index()
     {
         return view('krs.index', [
-            'krs' => KRS::get()
+            'krs' => krs::get()
         ]);
     }
 
@@ -39,18 +39,18 @@ class KRSController extends Controller
 public function show($id)
 {
     // Pastikan memanggil relasi 'mahasiswa' dan 'detail.kelas' agar datanya tidak null
-    $kRS = KRS::with(['mahasiswa', 'detail.kelas.matakuliah', 'detail.kelas.dosen'])->find($id);
+    $krs = krs::with(['mahasiswa', 'detail.kelas.matakuliah', 'detail.kelas.dosen'])->find($id);
     
     // Atau jika berdasarkan ID mahasiswa:
     // $krs = Krs::with(['mahasiswa', 'detail.kelas'])->where('mahasiswa_id', $id)->first();
 
-    return view('KRS.show', compact('KRS'));
+    return view('KRS.show', compact('krs'));
 }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(KRS $kRS)
+    public function edit(krs $krs)
     {
         //
     }
@@ -58,7 +58,8 @@ public function show($id)
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, KRS $kRS)
+    public function update(Request $request, krs $krs
+    )
     {
         //
     }
@@ -66,7 +67,7 @@ public function show($id)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(KRS $kRS)
+    public function destroy(krs $krs)
     {
         //
     }
