@@ -43,7 +43,7 @@
       
       <!-- Tombol Create -->
       <!-- Catatan: Ganti ke rute 'jurusan.add' atau 'jurusan.create' jika ada rute khusus form -->
-      <a href="{{ route('jurusan.index') }}" class="inline-flex items-center gap-2 bg-brand-blue hover:bg-blue-700 text-white font-medium text-sm px-4 py-2 rounded-md transition shadow-sm shadow-brand-blue/20 self-start sm:self-auto">
+        <a href="{{ action([App\Http\Controllers\JurusanController::class, 'create']) }}" class="btn btn-create shadow-sm">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
         </svg>
