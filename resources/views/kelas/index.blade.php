@@ -220,7 +220,7 @@
         <!-- Navbar Utama -->
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('dashboard') }}">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('landing') }}">
                     <div class="logo-wrapper">
                         <img src="https://112005.sgp1.vultrobjects.com/sikad/gambar/Logo.gA1qr7iMLX.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YGIP9T9E1N7J9K1U7NIC%2F20260514%2Fsgp1%2Fs3%2Faws4_request&X-Amz-Date=20260514T203745Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&x-id=GetObject&X-Amz-Signature=97c43795bdcaa209764f375d74ba8e93da28661f2c79cdeba4bb0f4b9ea321f6" alt="Logo ITBSS">
                     </div>
