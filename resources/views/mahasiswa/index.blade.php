@@ -355,11 +355,11 @@
 
     </div>
 
-    <!-- Footer Sistem Terintegrasi -->
+    <!-- Footer Gelap Identik -->
     <footer>
         <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center">
             <div class="footer-logo-container mb-2 mb-sm-0">
-                <span class="text-white fw-bold small tracking-wide">SIAKAD ITBSS</span>
+                <img src="{{ asset('images/Logo-White.png') }}" alt="Logo ITBSS Footer">
             </div>
             <p class="mb-0 small text-white-50">
                 Copyright © 2026 Institut Teknologi & Bisnis Sabda Setia - Yvanna Sudarmo
