@@ -1,4 +1,4 @@
-<a href="{{route('matakuliah.add')}}"> 
+<a href="{{route('matakuliah.index')}}"> 
     <input type="button" value="Create">
 </a>
 <table border="1">
