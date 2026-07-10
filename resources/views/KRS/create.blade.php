@@ -56,7 +56,7 @@
                 <span class="badge bg-primary px-3 py-2 fs-6">Semester Ganjil</span>
             </div>
 
-            <!-- Ringkasan Informasi Mahasiswa (Opsional, sesuaikan variabelnya) -->
+            <!-- Ringkasan Informasi Mahasiswa -->
             <div class="info-student row g-3 mb-4 mx-0">
                 <div class="col-md-6">
                     <small class="text-muted d-block">Nama Mahasiswa</small>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-md-3">
                     <small class="text-muted d-block">NIM</small>
-                    <span class="fw-bold">{{ $mahasiswa->nim ?? '2026xxxx' }}</span>
+                    <span class="fw-bold">{{ $mahasiswa->NIM ?? '2026xxxx' }}</span>
                 </div>
                 <div class="col-md-3">
                     <small class="text-muted d-block">Tahun Ajaran</small>
@@ -81,12 +81,12 @@
                         <thead>
                             <tr class="text-center">
                                 <th style="width: 50px;">Pilih</th>
-                                <th>Kode Kelas</th>
+                                <th>Kode MK</th>
                                 <th>Mata Kuliah</th>
                                 <th>Dosen Pengajar</th>
                                 <th>Jadwal</th>
                                 <th>Ruang</th>
-                                <th style="width: 100px;">Sisa Kuota</th>
+                                <th style="width: 120px;">Kapasitas</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,20 +98,23 @@
                                         <input type="checkbox" name="kelas_id[]" value="{{ $kelas->id }}" class="form-check-input p-2"
                                             {{ is_array(old('kelas_id')) && in_array($kelas->id, old('kelas_id')) ? 'checked' : '' }}>
                                     </td>
-                                    <td class="text-center fw-bold text-secondary">{{ $kelas->kode_kelas }}</td>
+                                    <!-- Menyesuaikan properti kode kelas (opsional: jika di database field-nya Kode_Mata_Kuliah) -->
+                                    <td class="text-center fw-bold text-secondary">
+                                        {{ $kelas->matakuliah->Kode_Mata_Kuliah ?? $kelas->kode_kelas }}
+                                    </td>
                                     <td>
-                                        <span class="d-block fw-semibold">{{ $kelas->mataKuliah->Nama_Mata_Kuliah ?? 'Mata Kuliah' }}</span>
-                                        <small class="text-muted">3 SKS</small> <!-- SKS bisa dinamis jika ada kolomnya -->
+                                        <span class="d-block fw-semibold">{{ $kelas->matakuliah->Nama_Mata_Kuliah ?? 'Mata Kuliah' }}</span>
+                                        <!-- SKS diset dinamis mengikuti relasi mata kuliah -->
+                                        <small class="text-muted">{{ $kelas->matakuliah->sks ?? '3' }} SKS</small> 
                                     </td>
                                     <td>{{ $kelas->dosen->Fullname ?? 'Nama Dosen' }}</td>
                                     <td class="text-center">
                                         <span class="badge bg-light text-dark border">{{ $kelas->hari }}</span>
                                         <small class="d-block text-muted mt-1">{{ $kelas->jam }}</small>
                                     </td>
-                                    <td class="text-center">{{ $kelas->ruang_kelas }}</td>
+                                    <td class="text-center"><span class="text-muted">{{ $kelas->ruang_kelas }}</span></td>
                                     <td class="text-center">
-                                        <!-- Contoh logika sisa kuota -->
-                                        <span class="text-success fw-bold">{{ $kelas->jumlah_max }}</span> Mhs
+                                        <span class="text-dark fw-bold">{{ $kelas->jumlah_max ?? '0' }}</span> Mhs
                                     </td>
                                 </tr>
                             @empty
@@ -131,7 +134,7 @@
                     </div>
                 @enderror
 
-                <!-- Tombol Aksi Khas KRS -->
+                <!-- Tombol Aksi -->
                 <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
                     <a href="{{ route('krs.index') }}" class="btn btn-light border btn-action">Kembali</a>
                     <button type="submit" class="btn bg-dark text-white btn-action shadow-sm">Simpan KRS Anda</button>
