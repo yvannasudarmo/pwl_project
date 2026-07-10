@@ -66,7 +66,7 @@
 
         .nav-link:hover, .nav-link.active {
             color: #0d6efd !important;
-        }
+          }
 
         .dropdown-menu {
             background: #ffffff;
@@ -245,15 +245,14 @@
                       <a class="nav-link dropdown-toggle fw-semibold active" href="#" id="siakadMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Menu SIAKAD
                       </a>
-                      <!-- 1. Perbaikan: Mengubah menu navigasi menggunakan helper route() -->
                       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="siakadMenu">
-                        <li><a class="dropdown-item" href="{{ route('dosen.index') }}">Dosen</a></li>
-                        <li><a class="dropdown-item" href="{{ route('mahasiswa.index') }}">Mahasiswa</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Dosen</a></li>
+                        <li><a class="dropdown-item active" href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">Mahasiswa</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('jurusan.index') }}">Jurusan</a></li>
-                        <li><a class="dropdown-item" href="{{ route('matakuliah.index') }}">Mata Kuliah</a></li>
-                        <li><a class="dropdown-item active" href="{{ route('kelas.index') }}">Kelas</a></li>
-                        <li><a class="dropdown-item" href="{{ route('krs.index') }}">KRS</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Jurusan</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">Mata Kuliah</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">Kelas</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KRSController::class, 'index']) }}">KRS</a></li>
                       </ul>
                     </div>
                   </div>
@@ -269,8 +268,7 @@
                     <p class="text-muted mb-0">Manajemen Jadwal dan Ruang Kuliah SIAKAD ITBSS</p>
                 </div>
                 <div>
-                    <!-- 2. Perbaikan: Route pembuatan kelas menggunakan helper route() -->
-                    <a href="{{ route('kelas.create') }}" class="btn btn-create shadow-sm">
+                    <a href="{{ action([App\Http\Controllers\KelasController::class, 'create']) }}" class="btn btn-create shadow-sm">
                         + Tambah Kelas
                     </a>
                 </div>
@@ -297,22 +295,21 @@
                             <tr>
                                 <td class="text-center text-muted">{{ $loop->iteration }}</td>
                                 <td><span class="badge bg-light text-dark border font-monospace">{{ $k->kode_kelas }}</span></td>
-                                <td class="fw-semibold text-dark">{{ $k->dosen->Fullname ?? '-' }}</td>
-                                <!-- 3. Perbaikan: Penyesuaian pemanggilan properti Mata Kuliah agar aman apabila relasi kosong -->
-                                <td>{{ $k->mataKuliah->Nama_MK ?? ($k->mataKuliah->Nama_Mata_Kuliah ?? '-') }}</td>
+                                <td class="fw-semibold text-dark">{{ $k->dosen->Fullname }}</td>
+                                <td>{{ $k->mataKuliah->Nama_Mata_Kuliah }}</td>
                                 <td><span class="badge bg-light text-secondary border">{{ $k->ruang_kelas }}</span></td>
                                 <td class="small fw-medium">{{ $k->hari }}</td>
                                 <td class="small text-muted">{{ $k->jam }}</td>
                                 <td class="small text-muted">{{ $k->tahun_ajaran }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <!-- 4. Perbaikan: Route Hapus menggunakan helper route() -->
-                                        <form action="{{ route('kelas.destroy', $k->id) }}" 
+                                        <form action="{{ action([App\Http\Controllers\KelasController::class, 'destroy'], $k->id) }}" 
                                               method="post" 
                                               class="m-0"
                                               onsubmit="return confirm('Apakah Anda yakin ingin menghapus data kelas ini?')">
                                             @csrf
                                             @method('DELETE')
+                                            <input type="hidden" name="id" value="{{ $k->id }}">
                                             <button type="submit" class="btn btn-action-delete">Delete</button>
                                         </form>
                                     </div>
@@ -320,8 +317,8 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="9" class="text-center text-muted py-4">
-                                    <em>Belum ada data kelas yang tersimpan.</em>
+                                <td colspan="9" class="text-center text-muted italic py-4">
+                                    Belum ada data kelas yang tersimpan.
                                 </td>
                             </tr>
                             @endforelse

@@ -1,10 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ request('lang', app()->getLocale() ?? 'id') }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SIAKAD - Tambah Kelas</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
         body { 
             background-color: #f5f7fb; 
@@ -49,6 +51,10 @@
             border-radius: 20px; 
             padding: 8px 20px;
             font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .border-t {
+            border-top: 1px solid #e2e8f0;
         }
     </style>
 </head>
@@ -61,8 +67,8 @@
                 <p class="text-muted small m-0 mt-1">SIAKAD Institut Teknologi & Bisnis Sabda Setia</p>
             </div>
             
-            <!-- Perbaikan: Route diarahkan ke KelasController -->
-            <form action="{{ action([App\Http\Controllers\KelasController::class, 'store']) }}" method="POST">
+            <!-- 1. Perbaikan: Mengubah action form menggunakan sintaks route() -->
+            <form action="{{ route('kelas.store') }}" method="POST">
                 @csrf
                 
                 <div class="row g-3">
@@ -87,7 +93,7 @@
                             <option value="" disabled selected>-- Pilih Mata Kuliah --</option>
                             @foreach ($mataKuliah as $mk)
                                 <option value="{{ $mk->id }}" {{ old('kode_mata_kuliah') == $mk->id ? 'selected' : '' }}>
-                                    {{ $mk->Nama_Mata_Kuliah }}
+                                    {{ $mk->Nama_Mata_Kuliah ?? $mk->Nama_MK }}
                                 </option>
                             @endforeach
                         </select>
@@ -144,7 +150,7 @@
                         <label class="form-label">Semester</label>
                         <select name="semester" class="form-select" required>
                             <option value="" disabled selected>-- Pilih Semester --</option>
-                            <option value="ganjil" {{ old('semester') == 'ganjil' ? 'selected' : '' }}>Ganjil</option>
+                            @option value="ganjil" {{ old('semester') == 'ganjil' ? 'selected' : '' }}>Ganjil</option>
                             <option value="genap" {{ old('semester') == 'genap' ? 'selected' : '' }}>Genap</option>
                         </select>
                         @error('semester') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
@@ -160,7 +166,8 @@
 
                 <!-- Tombol Aksi -->
                 <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-t">
-                    <a href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}" class="btn btn-light border btn-cancel">Batal</a>
+                    <!-- 2. Perbaikan: Mengubah tombol batal menggunakan sintaks route() -->
+                    <a href="{{ route('kelas.index') }}" class="btn btn-light border btn-cancel">Batal</a>
                     <button type="submit" class="btn btn-primary shadow-sm">Simpan Kelas</button>
                 </div>
             </form>
