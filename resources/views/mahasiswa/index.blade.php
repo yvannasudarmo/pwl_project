@@ -303,7 +303,7 @@
                                 <th>Nama Lengkap</th>
                                 <th>NIM</th>
                                 <th>NISN</th>
-                                <th>Tempat/Tanggal Lahir</th>
+                                <th>Tempat, Tanggal Lahir</th>
                                 <th>Alamat</th>
                                 <th>Tanggal Pembuatan</th>
                                 <th width="15%" class="text-center">Aksi</th>
@@ -317,10 +317,8 @@
                                 <td><span class="badge bg-light text-dark border font-monospace">{{ $m->NIM }}</span></td>
                                 <td class="text-secondary small">{{ $m->NISN ?? '-' }}</td>
                                 <td>
-                                    {{ $m->Tempat_Lahir }}, 
-                                    <span class="text-muted small">
-                                        {{ $m->Tanggal_Lahir ? \Carbon\Carbon::parse($m->Tanggal_Lahir)->format('d M Y') : '-' }}
-                                    </span>
+                                    <span class="d-block text-dark small fw-medium">{{ $m->Tempat_Lahir }}</span>
+                                    <span class="d-block text-muted small" style="font-size: 0.8rem;">{{ $m->Tanggal_Lahir }}</span>
                                 </td>
                                 <td class="text-wrap small text-secondary" style="max-width: 200px;">{{ $m->Alamat }}</td>
                                 <td class="text-muted small">

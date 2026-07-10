@@ -304,7 +304,7 @@
                                 <th>NIDN</th>
                                 <th>Pendidikan</th>
                                 <th>Jurusan</th>
-                                <th>Tempat, Tgl Lahir</th>
+                                <th>Tempat, Tanggal Lahir</th>
                                 <th>Alamat</th>
                                 <th>Tanggal Dibuat</th>
                                 <th width="12%" class="text-center">Aksi</th>
