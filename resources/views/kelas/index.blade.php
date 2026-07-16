@@ -297,7 +297,7 @@
                                 <td class="text-center text-muted">{{ $loop->iteration }}</td>
                                 <td><span class="badge bg-light text-dark border font-monospace">{{ $k->kode_kelas }}</span></td>
                                 <td class="fw-semibold text-dark">{{ $k->dosen->Fullname }}</td>
-                                <td>{{ $k->mataKuliah->Nama_Mata_Kuliah }}</td>
+                                <td>{{ $k->mataKuliah->Nama_MK }}</td>
                                 <td><span class="badge bg-light text-secondary border">{{ $k->ruang_kelas }}</span></td>
                                 <td class="small fw-medium">{{ $k->hari }}</td>
                                 <td class="small text-muted">{{ $k->jam }}</td>

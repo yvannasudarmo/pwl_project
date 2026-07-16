@@ -105,7 +105,7 @@
           Batal
         </a>
         <button type="submit" class="px-6 py-2 bg-brand-blue text-white font-medium rounded-md hover:bg-blue-700 transition text-sm shadow-sm shadow-brand-blue/20">
-          Perbarui
+          Perbarui Mata Kuliah
         </button>
       </div>
 
