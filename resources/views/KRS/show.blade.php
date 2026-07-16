@@ -36,10 +36,11 @@
 <body>
 
     <!-- Navbar SIAKAD -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light border-bottom sticky-top py-2">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('landing') }}">
                     <div class="logo-wrapper">
+                        <!-- Menggunakan file image logo lokal yang konsisten -->
                         <img src="{{ asset('images/LOGO-ITBSS.png') }}" alt="Logo ITBSS" onerror="this.src='https://112005.sgp1.vultrobjects.com/sikad/gambar/Logo.gA1qr7iMLX.png'">
                     </div>
                     <span class="brand-text ms-1 d-none d-md-inline">Institut Teknologi & Bisnis Sabda Setia</span>
