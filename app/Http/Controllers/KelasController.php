@@ -38,6 +38,7 @@ class KelasController extends Controller
      */
 public function store(Request $request)
     {
+        dd($request->all()); // <-- Tambahkan ini sementara, lalu klik simpan di browser
         $data = [
             'kode_kelas'       => $request->kode_kelas,
             'ruang_kelas'      => $request->ruang_kelas,
