@@ -38,7 +38,19 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('_token');
+        // Memetakan input secara eksplisit ke kolom database 'Kode_MK' dan 'Dosen_Id'
+        // Mencari alternatif input jika penamaan di HTML form Anda bervariasi
+        $data = [
+            'kode_kelas'   => $request->kode_kelas,
+            'ruang_kelas'  => $request->ruang_kelas,
+            'Kode_MK'      => $request->Kode_MK ?? $request->matakuliah_id ?? $request->kode_matakuliah, 
+            'Dosen_Id'     => $request->Dosen_Id ?? $request->dosen_id,
+            'hari'         => $request->hari,
+            'jam'          => $request->jam,
+            'tahun_ajaran' => $request->tahun_ajaran,
+            'semester'     => $request->semester,
+            'jumlah_max'   => $request->jumlah_max,
+        ];
 
         Kelas::create($data);
 
@@ -58,7 +70,6 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-        // Mengambil data kelas spesifik yang akan diedit beserta data pendukungnya
         return view('kelas.edit', [
             'kelas' => Kelas::findOrFail($id),
             'dosen' => Dosen::get(),
@@ -73,10 +84,19 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Mengabaikan token CSRF dan spoofing method (_method) dari request form
-        $data = $request->except(['_token', '_method']);
+        // Pemetaan eksplisit yang sama untuk method update
+        $data = [
+            'kode_kelas'   => $request->kode_kelas,
+            'ruang_kelas'  => $request->ruang_kelas,
+            'Kode_MK'      => $request->Kode_MK ?? $request->matakuliah_id ?? $request->kode_matakuliah,
+            'Dosen_Id'     => $request->Dosen_Id ?? $request->dosen_id,
+            'hari'         => $request->hari,
+            'jam'          => $request->jam,
+            'tahun_ajaran' => $request->tahun_ajaran,
+            'semester'     => $request->semester,
+            'jumlah_max'   => $request->jumlah_max,
+        ];
 
-        // Cari data berdasarkan ID, lalu perbarui datanya
         Kelas::findOrFail($id)->update($data);
 
         return redirect()->action([KelasController::class, 'index']);
