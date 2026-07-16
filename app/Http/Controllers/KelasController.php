@@ -2,112 +2,113 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KRS;
 use App\Models\Kelas;
-use App\Models\Jurusan;
-use App\Models\Dosen;
-use App\Models\MataKuliah;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class KelasController extends Controller
+class KRSController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('kelas.index', [
-            'kelas' => Kelas::get()
-        ]);
+        $krsData = KRS::with('mahasiswa')->get();
+        return view('krs.index', ['krs' => $krsData]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('kelas.create', [
-            'dosen' => Dosen::get(),
-            'mataKuliah'=> MataKuliah::get(),
-            'hari' => Kelas::ListHari(),
-            'jam' => Kelas::ListJam(),
+        $mahasiswa = Mahasiswa::first(); 
+        $dataKelas = Kelas::with(['matakuliah', 'dosen'])->get();
+        $tahun_ajaran = '2026/2027';
+
+        return view('krs.create', compact('mahasiswa', 'dataKelas', 'tahun_ajaran'));
+    }
+
+    public function store(Request $request)
+    {
+        // 1. Validasi input array kelas_id
+        $request->validate([
+            'kelas_id' => 'required|array|min:1',
+        ], [
+            'kelas_id.required' => 'Anda harus memilih minimal 1 mata kuliah.'
         ]);
+
+        // 2. Ambil data mahasiswa riil yang aktif mengisi
+        $mahasiswa = Mahasiswa::first(); 
+        if (!$mahasiswa) {
+            return redirect()->back()->with('error', 'Gagal menyimpan! Belum ada data mahasiswa di database.');
+        }
+
+        // Ambil NIM mahasiswa secara dinamis
+        $kodeMahasiswaOtomatis = auth()->user()->nim ?? auth()->user()->kode_mahasiswa ?? $mahasiswa->NIM ?? $mahasiswa->nim; 
+
+        // 3. Generate Waktu Otomatis
+        $tahunSekarang = date('Y');
+        $tahunAjaranOtomatis = $tahunSekarang . '/' . ($tahunSekarang + 1);
+        $bulanSekarang = (int)date('m');
+        $semesterOtomatis = ($bulanSekarang >= 7) ? 'ganjil' : 'genap';
+
+        // 4. Hitung SKS menggunakan 'kode_kelas' (Bukan 'id')
+        $kelasTerpilih = Kelas::with('matakuliah')->whereIn('kode_kelas', $request->kelas_id)->get();
+        $totalSksDihitung = 0;
+        foreach ($kelasTerpilih as $kelas) {
+            $totalSksDihitung += $kelas->matakuliah->sks ?? 0;
+        }
+
+        if ($totalSksDihitung > 24) {
+            return redirect()->back()->withInput()->with('error', "Total SKS ({$totalSksDihitung}) melebihi batas 24 SKS.");
+        }
+
+        // 5. Eksekusi Penyimpanan Database
+        DB::beginTransaction();
+        try {
+            $krsHeader = KRS::create([
+                'kode_mahasiswa' => $kodeMahasiswaOtomatis,
+                'tahun_ajaran'   => $tahunAjaranOtomatis,
+                'semester'       => $semesterOtomatis,
+                'total_sks'      => $totalSksDihitung,
+            ]);
+
+            // Jika relasi many-to-many ke kelas diset di model
+            if (method_exists($krsHeader, 'kelas')) {
+                $krsHeader->kelas()->attach($request->kelas_id);
+            }
+
+            DB::commit();
+            return redirect()->action([KRSController::class, 'index'])->with('success', 'KRS Berhasil disimpan!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withInput()->with('error', 'Gagal menyimpan: ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-public function store(Request $request)
+    public function show($id)
     {
-        // Memetakan input HTML secara presisi ke kolom database Anda
-        $data = [
-            'kode_kelas'       => $request->kode_kelas,
-            'ruang_kelas'      => $request->ruang_kelas,
-            'Kode_MK'          => $request->kode_mata_kuliah, // Memasukkan input 'kode_mata_kuliah' ke kolom 'Kode_MK'
-            'Dosen_Id'         => $request->kode_dosen,       // Memasukkan input 'kode_dosen' ke kolom 'Dosen_Id'
-            'hari'             => $request->hari,
-            'jam'              => $request->jam,
-            'tahun_ajaran'     => $request->tahun_ajaran,
-            'semester'         => $request->semester,
-            'jumlah_max'       => $request->jumlah_max,
-            'jumlah_mahasiswa' => 0, 
-        ];
-
-        Kelas::create($data);
-
-        return redirect()->action([KelasController::class, 'index']);
+        $krs = KRS::with(['mahasiswa', 'detail'])->findOrFail($id);
+        return view('krs.show', compact('krs'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Kelas $kelas)
+    public function edit(KRS $krs)
     {
-        //
+        return view('krs.edit', compact('krs'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function update(Request $request, KRS $krs)
     {
-        return view('kelas.edit', [
-            'kelas' => Kelas::findOrFail($id),
-            'dosen' => Dosen::get(),
-            'mataKuliah' => MataKuliah::get(),
-            'hari' => Kelas::ListHari(),
-            'jam' => Kelas::ListJam(),
-        ]);
+        return redirect()->route('krs.index');
     }
 
-public function update(Request $request, $id)
-    {
-        // Lakukan hal yang sama untuk proses update data
-        $data = [
-            'kode_kelas'       => $request->kode_kelas,
-            'ruang_kelas'      => $request->ruang_kelas,
-            'Kode_MK'          => $request->kode_mata_kuliah,
-            'Dosen_Id'         => $request->kode_dosen,
-            'hari'             => $request->hari,
-            'jam'              => $request->jam,
-            'tahun_ajaran'     => $request->tahun_ajaran,
-            'semester'         => $request->semester,
-            'jumlah_max'       => $request->jumlah_max,
-            'jumlah_mahasiswa' => $request->jumlah_mahasiswa ?? 0,
-        ];
-
-        Kelas::findOrFail($id)->update($data);
-
-        return redirect()->action([KelasController::class, 'index']);
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        Kelas::find($id)->delete();
+        $krs = KRS::where('id', $id)->orWhere('kode_mahasiswa', $id)->first();
 
-        return redirect()->action([KelasController::class, 'index']);
+        if ($krs) {
+            $krs->delete();
+            return redirect()->action([KRSController::class, 'index'])->with('success', 'Data KRS berhasil dihapus!');
+        }
+
+        return redirect()->action([KRSController::class, 'index'])->with('error', 'Data KRS tidak ditemukan.');
     }
 }

@@ -6,50 +6,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kelas extends Model
 {
-    protected $table = 'table_kelas';
-    protected $primaryKey = 'id';
-    public $incrementing = true;
+    protected $table = 'table_kelas'; 
+
+    // PENTING: Mengubah primary key bawaan Laravel dari 'id' menjadi 'kode_kelas'
+    protected $primaryKey = 'kode_kelas'; 
+
+    // Jika kode_kelas bertipe data String / Varchar (Bukan auto increment integer)
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
         'kode_kelas',
-        'Kode_MK',
-        'Dosen_Id',
         'hari',
         'jam',
-        'tahun_ajaran',
         'ruang_kelas',
         'jumlah_max',
-        'jumlah_mahasiswa',
-        'semester'
+        'matakuliah_id',
+        'dosen_id'
     ];
 
-    // Ditambahkan kata kunci 'static'
-    public static function ListHari(){
-        return [
-            'Senin',
-            'Selasa',
-            'Rabu',
-            'Kamis',
-            'Jumat'
-        ];
+    public function matakuliah()
+    {
+        return $this->belongsTo(Matakuliah::class, 'matakuliah_id');
     }
 
-    // Ditambahkan kata kunci 'static'
-    public static function ListJam(){
-        return [
-            '08:00 - 09:40',
-            '09:50 - 11:30',
-            '12:30 - 14:10',
-            '17:00 - 18:40',
-            '19:00 - 20:40'
-        ];
-    }
-    
-    public function mataKuliah() {
-        return $this->belongsTo(MataKuliah::class, 'Kode_MK');
-    }
-
-    public function dosen() {
-        return $this->belongsTo(Dosen::class, 'Dosen_Id');
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'dosen_id');
     }
 }
