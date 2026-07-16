@@ -4,6 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- CSRF Token untuk pengaman tambahan aplikasi Laravel -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <title>SIAKAD - Data Mata Kuliah</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -241,8 +245,8 @@
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('landing') }}">
                     <div class="logo-wrapper">
-                        <!-- Menggunakan file image logo lokal yang konsisten -->
-                        <img src="{{ asset('images/LOGO-ITBSS.png') }}" alt="Logo ITBSS" onerror="this.src='https://112005.sgp1.vultrobjects.com/sikad/gambar/Logo.gA1qr7iMLX.png'">
+                        <!-- Perbaikan: Penambahan `this.onerror=null;` untuk menghindari looping tak terbatas jika cadangan URL juga bermasalah -->
+                        <img src="{{ asset('images/LOGO-ITBSS.png') }}" alt="Logo ITBSS" onerror="this.onerror=null; this.src='https://112005.sgp1.vultrobjects.com/sikad/gambar/Logo.gA1qr7iMLX.png';">
                     </div>
                     <span class="brand-text ms-1 d-none d-md-inline">Institut Teknologi & Bisnis Sabda Setia</span>
                 </a>
@@ -254,8 +258,10 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
                   <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-3 mt-3 mt-lg-0">
-                    <form class="d-flex" role="search" action="#" method="get">
-                      <input class="form-control search-control" name="q" type="search" placeholder="Cari mata kuliah..." aria-label="Search">
+                    
+                    <!-- Perbaikan: Form pencarian diarahkan kembali ke indeks matakuliah -->
+                    <form class="d-flex" role="search" action="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}" method="get">
+                      <input class="form-control search-control" name="q" type="search" value="{{ request('q') }}" placeholder="Cari mata kuliah..." aria-label="Search">
                       <button class="btn btn-search ms-2" type="submit">Search</button>
                     </form>
 
@@ -267,10 +273,10 @@
                       </a>
                       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="siakadMenu">
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Dosen</a></li>
-                        <li><a class="dropdown-item active" href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">Mahasiswa</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">Mahasiswa</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Jurusan</a></li>
-                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">Mata Kuliah</a></li>
+                        <li><a class="dropdown-item active" href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">Mata Kuliah</a></li>
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">Kelas</a></li>
                         <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KRSController::class, 'index']) }}">KRS</a></li>
                       </ul>
@@ -285,10 +291,9 @@
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                 <div>
                     <h1 class="main-title mb-1">Daftar Data Mata Kuliah</h1>
-                    <p class="text-muted mb-0">Manajemen Kurikulum Kurikulum Akademik SIAKAD ITBSS</p>
+                    <p class="text-muted mb-0">Manajemen Kurikulum Akademik SIAKAD ITBSS</p>
                 </div>
                 <div>
-                    <!-- Diperbaiki mengarah ke create action -->
                     <a href="{{ action([App\Http\Controllers\MatakuliahController::class, 'create']) }}" class="btn btn-create shadow-sm">
                         + Tambah Mata Kuliah
                     </a>
@@ -324,17 +329,16 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-2">
-                                        <!-- Tombol Edit Terintegrasi -->
-                                        <a href="{{ route('matakuliah.update', $mk->id) }}" class="btn btn-action-edit">Edit</a>
+                                        <!-- Perbaikan 1: Diarahkan ke rute `.edit` (untuk memanggil halaman form edit) -->
+                                        <a href="{{ route('matakuliah.edit', $mk->id) }}" class="btn btn-action-edit">Edit</a>
                                         
-                                        <!-- Form Delete Terintegrasi + Konfirmasi -->
-                                        <form action="{{ route('matakuliah.delete', $mk->id) }}" 
+                                        <!-- Perbaikan 2: Form Delete Terstandarisasi, input hidden ID dihapus untuk mencegah konflik parameter -->
+                                        <form action="{{ route('matakuliah.destroy', $mk->id) }}" 
                                               method="post" 
                                               class="m-0"
-                                              onsubmit="return confirm('Apakah Anda yakin ingin menghapus mata kuliah ini?')">
+                                              onsubmit="return confirm('Apakah Anda yakin ingin menghapus data mata kuliah {{ $mk->Nama_MK }}?')">
                                             @csrf
                                             @method('DELETE')
-                                            <input type="hidden" name="id" value="{{ $mk->id }}">
                                             <button type="submit" class="btn btn-action-delete">Delete</button>
                                         </form>
                                     </div>
@@ -342,7 +346,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="8" class="text-center text-muted italic py-4">
+                                <td colspan="8" class="text-center text-muted fst-italic py-4">
                                     Belum ada data mata kuliah yang tersimpan.
                                 </td>
                             </tr>
