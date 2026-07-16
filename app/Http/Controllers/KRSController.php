@@ -71,13 +71,13 @@ class KRSController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
-    {
-        // Mengambil data KRS detail secara aman beserta nested relation-nya
-        $krs = krs::with(['mahasiswa', 'detail.kelas.matakuliah', 'detail.kelas.dosen'])->find($id);
-        
-        return view('krs.show', compact('krs'));
-    }
+public function show($id)
+{
+    // Mengambil data KRS beserta relasi mahasiswa dan detail mata kuliahnya
+    $krs = \App\Models\KRS::with(['mahasiswa', 'detail'])->findOrFail($id);
+
+    return view('KRS.show', compact('krs'));
+}
 
     /**
      * Show the form for editing the specified resource.
