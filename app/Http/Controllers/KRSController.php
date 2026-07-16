@@ -53,7 +53,7 @@ class KRSController extends Controller
         $mahasiswa = Mahasiswa::first();
         
         $krs = krs::create([
-            'mahasiswa_id' => $mahasiswa->id,
+            'NIM' => $mahasiswa->id,
             'tahun_ajaran' => '2026/2027',
             'semester'     => 'ganjil',
             'total_sks'    => 0, // Nanti dihitung dinamis dari total sks kelas terpilih
