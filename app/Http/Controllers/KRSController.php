@@ -43,6 +43,7 @@ class KRSController extends Controller
      */
 public function store(Request $request)
     {
+        dd($request->all()); // <-- Tambahkan ini sementara, lalu SIMPAN file code Anda
         $data = [
             // Memetakan ke kolom database 'NIM' dari berbagai kemungkinan nama input HTML form Anda
             'NIM'          => $request->NIM ?? $request->nim ?? $request->kode_mahasiswa ?? $request->mahasiswa_id,
