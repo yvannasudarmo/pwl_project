@@ -41,8 +41,7 @@
                 <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('landing') }}">
                     <div class="logo-wrapper">
                         <!-- Menggunakan file image logo lokal yang konsisten -->
-                        <img src="{{ asset('images/LOGO-ITBSS.png') }}" alt="Logo ITBSS" onerror="this.src='https://112005.sgp1.vultrobjects.com/sikad/gambar/Logo.gA1qr7iMLX.png'">
-                    </div>
+<img src="{{ asset('images/LOGO-ITBSS.png') }}" style="width: 48px; height: 48px; object-fit: contain; border-radius: 50%;" alt="Logo ITBSS">                    </div>
                     <span class="brand-text ms-1 d-none d-md-inline">Institut Teknologi & Bisnis Sabda Setia</span>
                 </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
