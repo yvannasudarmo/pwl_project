@@ -6,21 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class KRS extends Model
 {
-    protected $table = 'table_krs'; // Sesuaikan dengan nama tabel Anda
+    // 1. Deklarasi nama tabel di database
+    protected $table = 'table_krs'; 
 
-    // Jika primary key Anda bukan 'id' melainkan 'kode_mahasiswa', aktifkan ini:
-    // protected $primaryKey = 'kode_mahasiswa';
-    // public $incrementing = false;
-
+    // 2. Kolom yang diizinkan untuk diisi massal (Mass Assignment)
     protected $fillable = [
-        'kode_mahasiswa',
+        'kode_mahasiswa', // Kolom foreign key penampung NIM di tabel KRS
         'tahun_ajaran',
         'semester',
         'total_sks'
     ];
 
+    /**
+     * Relasi ke model Mahasiswa
+     * Hubungan: Banyak data KRS dimiliki oleh satu Mahasiswa (BelongsTo)
+     */
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class, 'kode_mahasiswa', 'kode_mahasiswa');
+        // Parameter 2: 'kode_mahasiswa' adalah kolom FK di table_krs
+        // Parameter 3: 'nim' adalah kolom PK asli di table_mhs (menggantikan kode_mahasiswa yang memicu error)
+        return $this->belongsTo(Mahasiswa::class, 'kode_mahasiswa', 'nim');
     }
 }
