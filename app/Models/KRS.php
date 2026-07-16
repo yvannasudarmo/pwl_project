@@ -15,14 +15,35 @@ class KRS extends Model
         'total_sks'
     ];
 
+    /**
+     * Relasi ke model Mahasiswa
+     */
     public function mahasiswa()
     {
-        // Menghubungkan kode_mahasiswa (tabel KRS) ke kolom NIM (tabel Mahasiswa) dengan case-sensitive yang tepat
         return $this->belongsTo(Mahasiswa::class, 'kode_mahasiswa', 'NIM');
     }
 
+    /**
+     * Relasi ke model Detail KRS (Jika menggunakan tabel log terpisah)
+     */
     public function detail()
     {
         return $this->hasMany(KRSDetail::class, 'krs_id', 'id');
+    }
+
+    /**
+     * PERBAIKAN UTAMA: Definisikan relasi Many-to-Many ke Kelas dengan custom key
+     * Gantilah 'krs_kelas' dengan nama tabel pivot/tabel penghubung Anda yang sebenarnya di DB
+     */
+    public function kelas()
+    {
+        return $this->belongsToMany(
+            Kelas::class, 
+            'krs_kelas',       // Nama tabel pivot penghubung KRS & Kelas
+            'krs_id',          // Foreign key model KRS di tabel pivot
+            'kode_kelas',      // Foreign key model Kelas di tabel pivot
+            'id',              // Local key di tabel table_krs
+            'kode_kelas'       // Related key di tabel table_kelas
+        );
     }
 }

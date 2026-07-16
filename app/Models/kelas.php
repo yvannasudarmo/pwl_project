@@ -7,11 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Kelas extends Model
 {
     protected $table = 'table_kelas'; 
+    protected $primaryKey = 'kode_kelas'; // Mengunci primary key ke kode_kelas
 
-    // PENTING: Mengubah primary key bawaan Laravel dari 'id' menjadi 'kode_kelas'
-    protected $primaryKey = 'kode_kelas'; 
-
-    // Jika kode_kelas bertipe data String / Varchar (Bukan auto increment integer)
     public $incrementing = false;
     protected $keyType = 'string';
 
