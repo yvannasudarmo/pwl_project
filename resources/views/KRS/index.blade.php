@@ -311,7 +311,7 @@
                             @forelse ($krs as $k)
                             <tr>
                                 <td class="text-center text-muted">{{ $loop->iteration }}</td>
-                                <td><span class="badge bg-light text-dark border font-monospace">{{ $k->mahasiswa->NIM }}</span></td>
+                                <td><span class="badge bg-light text-dark border font-monospace">{{ $k->mahasiswa->kode_mahasiswa }}</span></td>
                                 <td class="fw-semibold text-dark">{{ $k->mahasiswa->Fullname }}</td>
                                 <td class="text-muted small">{{ $k->tahun_ajaran }}</td>
                                 <td class="text-center">
