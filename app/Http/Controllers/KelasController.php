@@ -36,20 +36,21 @@ class KelasController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+public function store(Request $request)
     {
-        // Memetakan input secara eksplisit ke kolom database 'Kode_MK' dan 'Dosen_Id'
-        // Mencari alternatif input jika penamaan di HTML form Anda bervariasi
         $data = [
-            'kode_kelas'   => $request->kode_kelas,
-            'ruang_kelas'  => $request->ruang_kelas,
-            'Kode_MK'      => $request->Kode_MK ?? $request->matakuliah_id ?? $request->kode_matakuliah, 
-            'Dosen_Id'     => $request->Dosen_Id ?? $request->dosen_id,
-            'hari'         => $request->hari,
-            'jam'          => $request->jam,
-            'tahun_ajaran' => $request->tahun_ajaran,
-            'semester'     => $request->semester,
-            'jumlah_max'   => $request->jumlah_max,
+            'kode_kelas'       => $request->kode_kelas,
+            'ruang_kelas'      => $request->ruang_kelas,
+            'Kode_MK'          => $request->Kode_MK ?? $request->matakuliah_id ?? $request->kode_matakuliah, 
+            'Dosen_Id'         => $request->Dosen_Id ?? $request->dosen_id,
+            'hari'             => $request->hari,
+            'jam'              => $request->jam,
+            'tahun_ajaran'     => $request->tahun_ajaran,
+            'semester'         => $request->semester,
+            'jumlah_max'       => $request->jumlah_max,
+            
+            // TAMBAHKAN INI: Set default nilai 0 untuk data kelas baru
+            'jumlah_mahasiswa' => 0, 
         ];
 
         Kelas::create($data);
@@ -79,12 +80,8 @@ class KelasController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+public function update(Request $request, $id)
     {
-        // Pemetaan eksplisit yang sama untuk method update
         $data = [
             'kode_kelas'   => $request->kode_kelas,
             'ruang_kelas'  => $request->ruang_kelas,
@@ -95,14 +92,16 @@ class KelasController extends Controller
             'tahun_ajaran' => $request->tahun_ajaran,
             'semester'     => $request->semester,
             'jumlah_max'   => $request->jumlah_max,
-
-'jumlah_mahasiswa' => 0,
-            ];
+            
+            // Sertakan juga di method update agar tidak hilang
+            'jumlah_mahasiswa' => $request->jumlah_mahasiswa ?? 0,
+        ];
 
         Kelas::findOrFail($id)->update($data);
 
         return redirect()->action([KelasController::class, 'index']);
     }
+
 
     /**
      * Remove the specified resource from storage.
