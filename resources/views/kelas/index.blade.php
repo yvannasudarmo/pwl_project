@@ -304,7 +304,7 @@
                                 <td class="small text-muted">{{ $k->tahun_ajaran }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-<form action="{{ route('kelas.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+<form action="{{ route('kelas.destroy', $k->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <input type="hidden" name="id" value="{{ $k->id }}">
