@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Kelas extends Model
 {
     protected $table = 'table_kelas';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
 
     protected $fillable = [
         'kode_kelas',
