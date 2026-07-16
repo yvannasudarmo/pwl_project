@@ -42,31 +42,31 @@ class KRSController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'kelas_id' => 'required|array|min:1',
-        ], [
-            'kelas_id.required' => 'Anda harus memilih minimal satu mata kuliah!',
-        ]);
+{
+    // 1. Ambil kode/NIM mahasiswa yang sedang aktif login
+    // Jika belum pakai Auth, ganti "123456" dengan contoh kode mahasiswa yang ada di database Anda sementara waktu
+    $kodeMahasiswaOtomatis = auth()->user()->nim ?? auth()->user()->kode_mahasiswa ?? "123456"; 
 
-        // Simpan Logika KRS Baru (Contoh sederhana implementasi Anda)
-        $mahasiswa = Mahasiswa::first();
-        
-        $krs = krs::create([
-            'mahasiswa_id' => $mahasiswa->id,
-            'tahun_ajaran' => '2026/2027',
-            'semester'     => 'ganjil',
-            'total_sks'    => 0, // Nanti dihitung dinamis dari total sks kelas terpilih
-            'status_krs'   => 'pending'
-        ]);
+    // 2. Generate Tahun Ajaran dan Semester Otomatis
+    $tahunSekarang = date('Y');
+    $tahunAjaranOtomatis = $tahunSekarang . '/' . ($tahunSekarang + 1); // Hasil: "2026/2027"
+    
+    $bulanSekarang = (int)date('m');
+    $semesterOtomatis = ($bulanSekarang >= 7) ? 'ganjil' : 'genap';
 
-        foreach ($request->kelas_id as $id) {
-            // Asumsi Anda memiliki tabel detail KRS / krs_details
-            // $krs->detail()->create(['kelas_id' => $id, 'status' => 'pending']);
-        }
+    // 3. Petakan dengan benar sesuai nama kolom database Anda ('kode_mahasiswa')
+    $data = [
+        'kode_mahasiswa' => $kodeMahasiswaOtomatis, // <-- WAJIB MENGGUNAKAN KEY INI
+        'tahun_ajaran'   => $tahunAjaranOtomatis,
+        'semester'       => $semesterOtomatis,
+        'total_sks'      => 0,
+    ];
 
-        return redirect()->route('krs.index')->with('success', 'KRS berhasil disimpan!');
-    }
+    // Simpan ke database
+    KRS::create($data);
+
+    return redirect()->action([KRSController::class, 'index']);
+}
 
     /**
      * Display the specified resource.
