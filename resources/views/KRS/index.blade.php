@@ -311,14 +311,14 @@
                             @forelse ($krs as $k)
                             <tr>
                                 <td class="text-center text-muted">{{ $loop->iteration }}</td>
-<td>
-    <span class="badge bg-light text-dark border font-monospace">
-        {{ $k->mahasiswa?->kode_mahasiswa ?? '-' }}
-    </span>
-</td>
-<td class="fw-semibold text-dark">
-    {{ $k->mahasiswa?->Fullname ?? 'Mahasiswa Tidak Ditemukan' }}
-</td>
+                                <td>
+                                    <span class="badge bg-light text-dark border font-monospace">
+                                        {{ $k->mahasiswa?->kode_mahasiswa ?? $k->kode_mahasiswa ?? '-' }}
+                                    </span>
+                                </td>
+                                <td class="fw-semibold text-dark">
+                                    {{ $k->mahasiswa?->Fullname ?? 'Mahasiswa Tidak Ditemukan' }}
+                                </td>
                                 <td class="text-muted small">{{ $k->tahun_ajaran }}</td>
                                 <td class="text-center">
                                     <span class="badge bg-light text-secondary border px-2.5 py-1.5 fs-7 text-capitalize">
@@ -333,18 +333,17 @@
                                 <td>
                                     <div class="d-flex justify-content-center gap-2">
                                         <!-- Tombol View Detail -->
-                                        <a href="{{ action([App\Http\Controllers\KRSController::class, 'show'], $k->id) }}" target="_blank" class="btn btn-action-view">
+                                        <a href="{{ action([App\Http\Controllers\KRSController::class, 'show'], $k->id ?? $k->kode_mahasiswa) }}" target="_blank" class="btn btn-action-view">
                                             View
                                         </a>
                                         
                                         <!-- Form Delete + Konfirmasi Pengaman -->
-                                        <form action="{{ action([App\Http\Controllers\KRSController::class, 'destroy'], $k->id) }}" 
+                                        <form action="{{ action([App\Http\Controllers\KRSController::class, 'destroy'], $k->id ?? $k->kode_mahasiswa) }}" 
                                               method="post" 
                                               class="m-0"
                                               onsubmit="return confirm('Apakah Anda yakin ingin menghapus data KRS ini?')">
                                             @csrf
                                             @method('DELETE')
-                                            <input type="hidden" name="id" value="{{ $k->id }}">
                                             <button type="submit" class="btn btn-action-delete">Delete</button>
                                         </form>
                                     </div>
