@@ -95,8 +95,9 @@ class KelasController extends Controller
             'tahun_ajaran' => $request->tahun_ajaran,
             'semester'     => $request->semester,
             'jumlah_max'   => $request->jumlah_max,
-            'jumlah_mahasiswa' => $request->jumlah_mahasiswa,
-        ];
+
+'jumlah_mahasiswa' => 0,
+            ];
 
         Kelas::findOrFail($id)->update($data);
 
