@@ -37,11 +37,13 @@
 
     <!-- Navbar SIAKAD -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light border-bottom sticky-top py-2">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-primary" href="{{ route('landing') }}">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('landing') }}">
+                    <div class="logo-wrapper">
                         <img src="{{ asset('images/LOGO-ITBSS.png') }}" alt="Logo ITBSS" onerror="this.src='https://112005.sgp1.vultrobjects.com/sikad/gambar/Logo.gA1qr7iMLX.png'">
-                <span>SIAKAD</span>
-            </a>
+                    </div>
+                    <span class="brand-text ms-1 d-none d-md-inline">Institut Teknologi & Bisnis Sabda Setia</span>
+                </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
