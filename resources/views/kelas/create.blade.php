@@ -87,32 +87,24 @@
                     </div>
 
                     <!-- Mata Kuliah -->
-                    <div class="col-12">
-                        <label class="form-label">Mata Kuliah</label>
-                        <select name="kode_mata_kuliah" class="form-select" required>
-                            <option value="" disabled selected>-- Pilih Mata Kuliah --</option>
-                            @foreach ($mataKuliah as $mk)
-                                <option value="{{ $mk->id }}" {{ old('kode_mata_kuliah') == $mk->id ? 'selected' : '' }}>
-                                    {{ $mk->Nama_Mata_Kuliah ?? $mk->Nama_MK }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('kode_mata_kuliah') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
-                    </div>
+<label for="kode_matakuliah" class="form-label">Mata Kuliah</label>
+<!-- UBAH atribut name menjadi 'kode_matakuliah' -->
+<select class="form-select" id="kode_matakuliah" name="kode_matakuliah" required>
+    <option value="">-- Pilih Mata Kuliah --</option>
+    @foreach($mataKuliah as $mk)
+        <option value="{{ $mk->id }}">{{ $mk->Nama_MK }}</option>
+    @endforeach
+</select>
 
                     <!-- Dosen Pengajar -->
-                    <div class="col-12">
-                        <label class="form-label">Dosen Pengajar</label>
-                        <select name="kode_dosen" class="form-select" required>
-                            <option value="" disabled selected>-- Pilih Dosen --</option>
-                            @foreach ($dosen as $d)
-                                <option value="{{ $d->id }}" {{ old('kode_dosen') == $d->id ? 'selected' : '' }}>
-                                    {{ $d->Fullname }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('kode_dosen') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
-                    </div>
+<label for="Dosen_Id" class="form-label">Dosen</label>
+<!-- UBAH atribut name menjadi 'Dosen_Id' -->
+<select class="form-select" id="Dosen_Id" name="Dosen_Id" required>
+    <option value="">-- Pilih Dosen Pengampu --</option>
+    @foreach($dosen as $dsn)
+        <option value="{{ $dsn->id }}">{{ $dsn->Nama_Dosen }}</option>
+    @endforeach
+</select>
 
                     <!-- Hari -->
                     <div class="col-md-6">
