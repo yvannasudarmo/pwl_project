@@ -304,12 +304,12 @@
                                 <td class="small text-muted">{{ $k->tahun_ajaran }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-<form action="{{ route('kelas.destroy', $k->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="id" value="{{ $k->id }}">
-                                            <button type="submit" class="btn btn-action-delete">Delete</button>
-                                        </form>
+<!-- KODE BARU YANG SUDAH DIPERBAIKI -->
+<form action="/kelas/{{ $k->kode_kelas }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-action-delete">Delete</button>
+</form>
                                     </div>
                                 </td>
                             </tr>
