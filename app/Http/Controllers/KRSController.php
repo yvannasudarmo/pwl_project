@@ -6,7 +6,6 @@ use App\Models\KRS;
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class KRSController extends Controller
 {
@@ -38,67 +37,43 @@ class KRSController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Validasi input array kelas_id
+        // 1. Validasi input array kelas_id wajib dicentang
         $request->validate([
             'kelas_id' => 'required|array|min:1',
         ], [
             'kelas_id.required' => 'Anda harus memilih minimal 1 mata kuliah.'
         ]);
 
-        // 2. Ambil data mahasiswa riil yang aktif mengisi
+        // 2. Ambil data mahasiswa di database
         $mahasiswa = Mahasiswa::first(); 
         if (!$mahasiswa) {
-            return redirect()->back()->with('error', 'Gagal menyimpan! Belum ada data mahasiswa di database.');
+            return redirect()->back()->with('error', 'Gagal! Belum ada data mahasiswa di database.');
         }
 
-        // Ambil NIM mahasiswa secara dinamis
+        // Ambil NIM secara aman (menggunakan case-sensitive yang tepat)
         $kodeMahasiswaOtomatis = auth()->user()->nim ?? auth()->user()->kode_mahasiswa ?? $mahasiswa->NIM ?? $mahasiswa->nim; 
 
-        // 3. Generate Waktu Otomatis
+        // 3. Generate Waktu & Semester Otomatis
         $tahunSekarang = date('Y');
         $tahunAjaranOtomatis = $tahunSekarang . '/' . ($tahunSekarang + 1);
-        $bulanSekarang = (int)date('m');
-        $semesterOtomatis = ($bulanSekarang >= 7) ? 'ganjil' : 'genap';
+        $semesterOtomatis = ((int)date('m') >= 7) ? 'ganjil' : 'genap';
 
-        // 4. Hitung SKS menggunakan 'kode_kelas'
+        // 4. Hitung SKS berdasarkan kode_kelas yang dicentang
         $kelasTerpilih = Kelas::with('matakuliah')->whereIn('kode_kelas', $request->kelas_id)->get();
         $totalSksDihitung = 0;
         foreach ($kelasTerpilih as $kelas) {
             $totalSksDihitung += $kelas->matakuliah->sks ?? 0;
         }
 
-        if ($totalSksDihitung > 24) {
-            return redirect()->back()->withInput()->with('error', "Total SKS ({$totalSksDihitung}) melebihi batas 24 SKS.");
-        }
+        // 5. Simpan Data Master KRS
+        KRS::create([
+            'kode_mahasiswa' => $kodeMahasiswaOtomatis,
+            'tahun_ajaran'   => $tahunAjaranOtomatis,
+            'semester'       => $semesterOtomatis,
+            'total_sks'      => $totalSksDihitung,
+        ]);
 
-        // 5. Eksekusi Penyimpanan Database
-        DB::beginTransaction();
-        try {
-            // Simpan data master KRS
-            $krsHeader = KRS::create([
-                'kode_mahasiswa' => $kodeMahasiswaOtomatis,
-                'tahun_ajaran'   => $tahunAjaranOtomatis,
-                'semester'       => $semesterOtomatis,
-                'total_sks'      => $totalSksDihitung,
-            ]);
-
-            // 6. Simpan detail kelas terpilih menggunakan Query Builder langsung ke tabel detail Anda
-            foreach ($request->kelas_id as $kodeKelasItem) {
-                DB::table('table_krs_detail')->insert([
-                    'krs_id'     => $krsHeader->id,
-                    'kode_kelas' => $kodeKelasItem,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
-
-            DB::commit();
-            return redirect()->action([KRSController::class, 'index'])->with('success', 'KRS Berhasil disimpan!');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->withInput()->with('error', 'Gagal menyimpan: ' . $e->getMessage());
-        }
+        return redirect()->action([KRSController::class, 'index'])->with('success', 'KRS Berhasil disimpan!');
     }
 
     /**
