@@ -42,21 +42,39 @@ class KRSController extends Controller
      * Store a newly created resource in storage.
      */
 public function store(Request $request)
-    {
-        $data = [
-            // Memetakan ke kolom database 'NIM' dari berbagai kemungkinan nama input HTML form Anda
-            'NIM'          => $request->NIM ?? $request->nim ?? $request->kode_mahasiswa ?? $request->mahasiswa_id,
-            
-            'tahun_ajaran' => $request->tahun_ajaran,
-            'semester'     => $request->semester,
-            'total_sks'    => $request->total_sks ?? 0,
-        ];
+{
+    // 1. Ambil NIM dari mahasiswa yang sedang login (jika menggunakan Auth Laravel)
+    // Atau jika Anda belum pakai Auth, ganti "123456" dengan NIM contoh yang ada di database Anda sementara waktu
+    $nimMahasiswa = auth()->user()->nim ?? "123456"; 
 
-        // Ganti 'KRS' dengan nama Model KRS Anda yang sebenarnya jika berbeda
-        KRS::create($data); 
+    // 2. Karena di form tidak ada input tahun_ajaran & semester, kita buat otomatis berdasarkan waktu sekarang
+    $tahunSekarang = date('Y');
+    $tahunAjaranOtomatis = $tahunSekarang . '/' . ($tahunSekarang + 1); // Hasil: "2026/2027"
+    
+    // Tentukan semester otomatis (Bulan 1-6 = genap, Bulan 7-12 = ganjil)
+    $bulanSekarang = (int)date('m');
+    $semesterOtomatis = ($bulanSekarang >= 7) ? 'ganjil' : 'genap';
 
-        return redirect()->action([KRSController::class, 'index']);
+    // 3. Susun data untuk dimasukkan ke database table_krs
+    $data = [
+        'NIM'          => $nimMahasiswa,
+        'tahun_ajaran' => $tahunAjaranOtomatis,
+        'semester'     => $semesterOtomatis,
+        'total_sks'    => 0, // Default awal 0 SKS
+    ];
+
+    // Simpan data KRS utama
+    $krs = KRS::create($data);
+
+    // 4. Proses simpan detail kelas yang dipilih (kelas_id) ke tabel pivot/detail KRS Anda
+    if ($request->has('kelas_id')) {
+        // Jika Anda memiliki relasi many-to-many atau tabel detail_krs, 
+        // Anda bisa menyimpannya di sini. Contoh jika menggunakan tabel pivot:
+        // $krs->kelas()->attach($request->kelas_id);
     }
+
+    return redirect()->action([KRSController::class, 'index']);
+}
 
     /**
      * Display the specified resource.
