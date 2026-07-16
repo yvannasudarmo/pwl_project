@@ -99,9 +99,20 @@ class KRSController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(krs $krs)
-    {
+public function destroy($id)
+{
+    // Mengamankan pencarian: cari berdasarkan 'id' tabel KRS ATAU kolom 'kode_mahasiswa'
+    $krs = \App\Models\KRS::where('id', $id)
+                          ->orWhere('kode_mahasiswa', $id)
+                          ->first();
+
+    if ($krs) {
         $krs->delete();
-        return redirect()->route('krs.index')->with('success', 'Data KRS berhasil dihapus');
+        return redirect()->action([KRSController::class, 'index'])
+                         ->with('success', 'Data KRS berhasil dihapus!');
     }
+
+    return redirect()->action([KRSController::class, 'index'])
+                     ->with('error', 'Data KRS tidak ditemukan.');
+}
 }
