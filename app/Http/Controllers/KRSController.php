@@ -41,31 +41,21 @@ class KRSController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+public function store(Request $request)
     {
-        $request->validate([
-            'kelas_id' => 'required|array|min:1',
-        ], [
-            'kelas_id.required' => 'Anda harus memilih minimal satu mata kuliah!',
-        ]);
+        $data = [
+            // Memetakan ke kolom database 'NIM' dari berbagai kemungkinan nama input HTML form Anda
+            'NIM'          => $request->NIM ?? $request->nim ?? $request->kode_mahasiswa ?? $request->mahasiswa_id,
+            
+            'tahun_ajaran' => $request->tahun_ajaran,
+            'semester'     => $request->semester,
+            'total_sks'    => $request->total_sks ?? 0,
+        ];
 
-        // Simpan Logika KRS Baru (Contoh sederhana implementasi Anda)
-        $mahasiswa = Mahasiswa::first();
-        
-        $krs = krs::create([
-            'NIM' => $mahasiswa->id,
-            'tahun_ajaran' => '2026/2027',
-            'semester'     => 'ganjil',
-            'total_sks'    => 0, // Nanti dihitung dinamis dari total sks kelas terpilih
-            'status_krs'   => 'pending'
-        ]);
+        // Ganti 'KRS' dengan nama Model KRS Anda yang sebenarnya jika berbeda
+        KRS::create($data); 
 
-        foreach ($request->kelas_id as $id) {
-            // Asumsi Anda memiliki tabel detail KRS / krs_details
-            // $krs->detail()->create(['kelas_id' => $id, 'status' => 'pending']);
-        }
-
-        return redirect()->route('krs.index')->with('success', 'KRS berhasil disimpan!');
+        return redirect()->action([KRSController::class, 'index']);
     }
 
     /**
@@ -90,10 +80,18 @@ class KRSController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, krs $krs)
+public function update(Request $request, $id)
     {
-        // Logika Update
-        return redirect()->route('krs.index');
+        $data = [
+            'NIM'          => $request->NIM ?? $request->nim ?? $request->kode_mahasiswa ?? $request->mahasiswa_id,
+            'tahun_ajaran' => $request->tahun_ajaran,
+            'semester'     => $request->semester,
+            'total_sks'    => $request->total_sks ?? 0,
+        ];
+
+        KRS::findOrFail($id)->update($data);
+
+        return redirect()->action([KRSController::class, 'index']);
     }
 
     /**
