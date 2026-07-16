@@ -94,9 +94,9 @@
             box-shadow: 0 4px 12px rgba(9, 30, 63, 0.03);
         }
 
-        .border-end-md {
-            @media (min-width: 768px) {
-                border-end: 1px solid #e2e8f0 !important;
+        @media (min-width: 768px) {
+            .border-end-md {
+                border-right: 1px solid #e2e8f0 !important;
             }
         }
 
@@ -189,13 +189,13 @@
                         Menu SIAKAD
                       </a>
                       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="siakadMenu">
-                        <li><a class="dropdown-item" href="{{ route('dosen.index') }}">Dosen</a></li>
-                        <li><a class="dropdown-item" href="{{ route('mahasiswa.index') }}">Mahasiswa</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">Dosen</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">Mahasiswa</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('jurusan.index') }}">Jurusan</a></li>
-                        <li><a class="dropdown-item" href="{{ route('matakuliah.index') }}">Mata Kuliah</a></li>
-                        <li><a class="dropdown-item" href="{{ route('kelas.index') }}">Kelas</a></li>
-                        <li><a class="dropdown-item active" href="{{ route('krs.index') }}">KRS</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">Jurusan</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">Mata Kuliah</a></li>
+                        <li><a class="dropdown-item" href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">Kelas</a></li>
+                        <li><a class="dropdown-item active" href="{{ action([App\Http\Controllers\KRSController::class, 'index']) }}">KRS</a></li>
                       </ul>
                     </div>
                   </div>
@@ -218,10 +218,13 @@
                     <div class="row g-4 align-items-center">
                         <div class="col-md-6 border-end-md">
                             <small class="text-muted d-block text-uppercase fw-semibold mb-1" style="font-size: 0.725rem; letter-spacing: 0.5px;">Identitas Mahasiswa</small>
-                            <h5 class="fw-bold text-dark m-0 mb-1">{{ $krs->mahasiswa->Fullname ?? 'Nama Tidak Ditemukan' }}</h5>
+                            <!-- Proteksi Nama Mahasiswa agar tidak pecah saat data relasi kosong -->
+                            <h5 class="fw-bold text-dark m-0 mb-1">
+                                {{ $krs->mahasiswa?->Fullname ?? 'Nama Tidak Ditemukan' }}
+                            </h5>
                             <div class="text-secondary small">
-                                <span class="me-3"><strong>NIM:</strong> {{ $krs->mahasiswa->kode_mahasiswa ?? $krs->mahasiswa->NIM ?? '-' }}</span>
-                                @if(isset($krs->mahasiswa->NIDN) && $krs->mahasiswa->NIDN) 
+                                <span class="me-3"><strong>NIM:</strong> {{ $krs->mahasiswa?->nim ?? $krs->kode_mahasiswa ?? '-' }}</span>
+                                @if(isset($krs->mahasiswa?->NIDN) && $krs->mahasiswa?->NIDN) 
                                     <span><strong>NIDN Wali:</strong> {{ $krs->mahasiswa->NIDN }}</span> 
                                 @endif
                             </div>
@@ -256,25 +259,25 @@
                                     <th class="text-center" width="12%">Ruangan</th>
                                     <th class="text-center" width="15%">Status</th>
                                 </tr>
-                            </thead>
+                            </tbody>
                             <tbody>
-                                @forelse ($krs->detail as $k)
+                                @forelse ($krs->detail ?? [] as $k)
                                 <tr>
                                     <td class="text-center text-muted small">{{ $loop->iteration }}</td>
                                     <td>
                                         <span class="badge bg-light text-dark border font-monospace">
-                                            {{ $k->kelas->matakuliah->Kode_Mata_Kuliah ?? '-' }}
+                                            {{ $k->kelas?->matakuliah?->Kode_Mata_Kuliah ?? '-' }}
                                         </span>
                                     </td>
                                     <td>
-                                        <span class="fw-semibold text-dark">{{ $k->kelas->matakuliah->Nama_Mata_Kuliah ?? '-' }}</span>
+                                        <span class="fw-semibold text-dark">{{ $k->kelas?->matakuliah?->Nama_Mata_Kuliah ?? '-' }}</span>
                                     </td>
-                                    <td class="text-secondary">{{ $k->kelas->dosen->Fullname ?? '-' }}</td>
+                                    <td class="text-secondary">{{ $k->kelas?->dosen?->Fullname ?? '-' }}</td>
                                     <td class="text-center">
-                                        <span class="badge bg-light text-dark border px-2 py-1 fs-8">{{ $k->kelas->hari ?? '-' }}</span>
-                                        <small class="d-block text-muted mt-1 font-monospace" style="font-size: 0.75rem;">{{ $k->kelas->jam ?? '-' }}</small>
+                                        <span class="badge bg-light text-dark border px-2 py-1 fs-8">{{ $k->kelas?->hari ?? '-' }}</span>
+                                        <small class="d-block text-muted mt-1 font-monospace" style="font-size: 0.75rem;">{{ $k->kelas?->jam ?? '-' }}</small>
                                     </td>
-                                    <td class="text-center"><span class="text-muted fw-medium">{{ $k->kelas->ruang_kelas ?? '-' }}</span></td>
+                                    <td class="text-center"><span class="text-muted fw-medium">{{ $k->kelas?->ruang_kelas ?? '-' }}</span></td>
                                     <td class="text-center">
                                         @if(strtolower($k->status ?? '') == 'approved' || strtolower($k->status ?? '') == 'disetujui')
                                             <span class="badge bg-success-subtle text-success border border-success-subtle d-block py-1.5 px-2">Disetujui</span>
