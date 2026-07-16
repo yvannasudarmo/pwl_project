@@ -23,17 +23,17 @@ class KRS extends Model
      */
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class, 'kode_mahasiswa', 'nim');
+        // PENTING: Pastikan parameter ke-3 ('NIM') persis sama dengan nama kolom di database Anda
+        return $this->belongsTo(Mahasiswa::class, 'kode_mahasiswa', 'NIM');
     }
 
     /**
-     * PERBAIKAN: Menambahkan relasi 'detail' yang dicari oleh Controller
-     * Hubungan: Satu KRS memiliki banyak detail item mata kuliah (HasMany)
+     * Relasi ke model Detail KRS
+     * Hubungan: Satu data induk KRS memiliki banyak rincian kelas/matakuliah
      */
     public function detail()
     {
-        // Parameter 2: 'krs_id' atau 'kode_krs' adalah kolom foreign key di tabel detail KRS Anda.
-        // Silakan sesuaikan nama model detail Anda (misal: DetailKRS atau KRSDetail)
+        // Pastikan Anda sudah membuat file model KRSDetail.php
         return $this->hasMany(KRSDetail::class, 'krs_id', 'id');
     }
 }
