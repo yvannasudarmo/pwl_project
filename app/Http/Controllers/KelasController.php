@@ -38,19 +38,17 @@ class KelasController extends Controller
      */
 public function store(Request $request)
     {
-        dd($request->all()); // <-- Tambahkan ini sementara, lalu klik simpan di browser
+        // Memetakan input HTML secara presisi ke kolom database Anda
         $data = [
             'kode_kelas'       => $request->kode_kelas,
             'ruang_kelas'      => $request->ruang_kelas,
-            'Kode_MK'          => $request->Kode_MK ?? $request->matakuliah_id ?? $request->kode_matakuliah, 
-            'Dosen_Id'         => $request->Dosen_Id ?? $request->dosen_id,
+            'Kode_MK'          => $request->kode_mata_kuliah, // Memasukkan input 'kode_mata_kuliah' ke kolom 'Kode_MK'
+            'Dosen_Id'         => $request->kode_dosen,       // Memasukkan input 'kode_dosen' ke kolom 'Dosen_Id'
             'hari'             => $request->hari,
             'jam'              => $request->jam,
             'tahun_ajaran'     => $request->tahun_ajaran,
             'semester'         => $request->semester,
             'jumlah_max'       => $request->jumlah_max,
-            
-            // TAMBAHKAN INI: Set default nilai 0 untuk data kelas baru
             'jumlah_mahasiswa' => 0, 
         ];
 
@@ -83,18 +81,17 @@ public function store(Request $request)
 
 public function update(Request $request, $id)
     {
+        // Lakukan hal yang sama untuk proses update data
         $data = [
-            'kode_kelas'   => $request->kode_kelas,
-            'ruang_kelas'  => $request->ruang_kelas,
-            'Kode_MK'      => $request->Kode_MK ?? $request->matakuliah_id ?? $request->kode_matakuliah,
-            'Dosen_Id'     => $request->Dosen_Id ?? $request->dosen_id,
-            'hari'         => $request->hari,
-            'jam'          => $request->jam,
-            'tahun_ajaran' => $request->tahun_ajaran,
-            'semester'     => $request->semester,
-            'jumlah_max'   => $request->jumlah_max,
-            
-            // Sertakan juga di method update agar tidak hilang
+            'kode_kelas'       => $request->kode_kelas,
+            'ruang_kelas'      => $request->ruang_kelas,
+            'Kode_MK'          => $request->kode_mata_kuliah,
+            'Dosen_Id'         => $request->kode_dosen,
+            'hari'             => $request->hari,
+            'jam'              => $request->jam,
+            'tahun_ajaran'     => $request->tahun_ajaran,
+            'semester'         => $request->semester,
+            'jumlah_max'       => $request->jumlah_max,
             'jumlah_mahasiswa' => $request->jumlah_mahasiswa ?? 0,
         ];
 
