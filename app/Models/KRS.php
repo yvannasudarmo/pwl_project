@@ -4,23 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class krs extends Model
+class KRS extends Model
 {
-    protected $table = 'table_krs';
+    protected $table = 'table_krs'; // Sesuaikan dengan nama tabel Anda
+
+    // Jika primary key Anda bukan 'id' melainkan 'kode_mahasiswa', aktifkan ini:
+    // protected $primaryKey = 'kode_mahasiswa';
+    // public $incrementing = false;
 
     protected $fillable = [
         'kode_mahasiswa',
         'tahun_ajaran',
         'semester',
-        'status',
         'total_sks'
     ];
 
-    public function mahasiswa() {
-        return $this->hasOne(Mahasiswa::class, 'id', 'kode_mahasiswa');
-    }
-
-    public function detail() {
-        return $this->hasMany(KRSDetail::class, 'krs_id', 'id');
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'kode_mahasiswa', 'kode_mahasiswa');
     }
 }
