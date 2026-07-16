@@ -41,31 +41,60 @@ class KRSController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+public function store(Request $request)
 {
-    // 1. Ambil kode/NIM mahasiswa yang sedang aktif login
-    // Jika belum pakai Auth, ganti "123456" dengan contoh kode mahasiswa yang ada di database Anda sementara waktu
-    $kodeMahasiswaOtomatis = auth()->user()->nim ?? auth()->user()->kode_mahasiswa ?? "123456"; 
+    // 1. Validasi input: pastikan ada kelas yang terpilih
+    $request->validate([
+        'kelas_id' => 'required|array|min:1',
+    ]);
 
-    // 2. Generate Tahun Ajaran dan Semester Otomatis
+    // 2. AMBIL MAHASISWA YANG SAMA DENGAN DI HALAMAN FORM CREATE
+    // Jika belum login, pastikan mengambil NIM dari database mahasiswa yang riil
+    $mahasiswa = Mahasiswa::first(); 
+    
+    // Jika mahasiswa tidak ditemukan sama sekali di database, beri peringatan
+    if (!$mahasiswa) {
+        return redirect()->back()->with('error', 'Gagal menyimpan! Belum ada data mahasiswa di database.');
+    }
+
+    // Ambil NIM riil dari database (misal kolomnya NIM atau kode_mahasiswa)
+    $kodeMahasiswaOtomatis = auth()->user()->nim ?? auth()->user()->kode_mahasiswa ?? $mahasiswa->NIM ?? $mahasiswa->kode_mahasiswa;
+
+    // 3. Generate Tahun Ajaran dan Semester Otomatis
     $tahunSekarang = date('Y');
-    $tahunAjaranOtomatis = $tahunSekarang . '/' . ($tahunSekarang + 1); // Hasil: "2026/2027"
+    $tahunAjaranOtomatis = $tahunSekarang . '/' . ($tahunSekarang + 1);
     
     $bulanSekarang = (int)date('m');
     $semesterOtomatis = ($bulanSekarang >= 7) ? 'ganjil' : 'genap';
 
-    // 3. Petakan dengan benar sesuai nama kolom database Anda ('kode_mahasiswa')
-    $data = [
-        'kode_mahasiswa' => $kodeMahasiswaOtomatis, // <-- WAJIB MENGGUNAKAN KEY INI
-        'tahun_ajaran'   => $tahunAjaranOtomatis,
-        'semester'       => $semesterOtomatis,
-        'total_sks'      => 0,
-    ];
+    // 4. Hitung Total SKS
+    $kelasTerpilih = Kelas::with('matakuliah')->whereIn('id', $request->kelas_id)->get();
+    $totalSksDihitung = 0;
+    foreach ($kelasTerpilih as $kelas) {
+        $totalSksDihitung += $kelas->matakuliah->sks ?? 0;
+    }
 
-    // Simpan ke database
-    KRS::create($data);
+    // 5. Simpan Data KRS
+    DB::beginTransaction();
+    try {
+        $krsHeader = KRS::create([
+            'kode_mahasiswa' => $kodeMahasiswaOtomatis, // Kolom foreign key ini harus sama dengan NIM/Kode di tabel mahasiswa
+            'tahun_ajaran'   => $tahunAjaranOtomatis,
+            'semester'       => $semesterOtomatis,
+            'total_sks'      => $totalSksDihitung,
+        ]);
 
-    return redirect()->action([KRSController::class, 'index']);
+        if (method_exists($krsHeader, 'kelas')) {
+            $krsHeader->kelas()->attach($request->kelas_id);
+        }
+
+        DB::commit();
+        return redirect()->action([KRSController::class, 'index'])->with('success', 'KRS Berhasil disimpan!');
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+    }
 }
 
     /**
