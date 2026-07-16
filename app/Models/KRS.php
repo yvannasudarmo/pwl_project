@@ -9,7 +9,7 @@ class krs extends Model
     protected $table = 'table_krs';
 
     protected $fillable = [
-        'NIM',
+        'kode_mahasiswa',
         'tahun_ajaran',
         'semester',
         'status',
@@ -17,7 +17,7 @@ class krs extends Model
     ];
 
     public function mahasiswa() {
-        return $this->hasOne(Mahasiswa::class, 'id', 'NIM');
+        return $this->hasOne(Mahasiswa::class, 'id', 'kode_mahasiswa');
     }
 
     public function detail() {
